@@ -1,8 +1,18 @@
+import axios from "axios";
 import BusNumber from "@/components/widget/BusNumber";
 import BusArrivalTime from "@/components/widget/BusArrivalTime";
 import PastBusTimes from "@/components/widget/PastBusTimes/PastBusTimes";
 
-const BusInfoSection = () => {
+const BusInfoSection = async () => {
+  const res = await axios.get(`${process.env.NEXT_PUBLIC_API}/bus-info`, {
+    params: {
+      day: process.env.NEXT_PUBLIC_TEST_DAY,
+      routeId: process.env.NEXT_PUBLIC_TEST_ROUTE_ID,
+      stationId: process.env.NEXT_PUBLIC_TEST_STATION_ID,
+      stationOrder: process.env.NEXT_PUBLIC_TEST_STATION_ORDER,
+    },
+  });
+
   return (
     <>
       <BusNumber busNumber="66" />
