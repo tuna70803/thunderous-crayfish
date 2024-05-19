@@ -1,20 +1,57 @@
+import type { ChangeEvent } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
+import type { BusForm } from "./types";
 
-const BusSearchContent = () => {
+interface BusSearchContentProps {
+  className?: string;
+  busFormValues: BusForm;
+  onBusFormChange: (event: ChangeEvent<HTMLInputElement>) => void;
+}
+
+const BusSearchContent = ({
+  className,
+  busFormValues,
+  onBusFormChange,
+}: BusSearchContentProps) => {
   return (
-    <div className="flex flex-col gap-6 mt-8">
+    <div className={cn("flex flex-col gap-8", className)}>
       <div className="flex flex-col items-start gap-1.5">
-        <Label htmlFor="bus-stop-id">정류소 ID</Label>
-        <Input id="bus-stop-id" value="12345" />
+        <Label htmlFor="busNumber">버스 번호</Label>
+        <Input
+          id="busNumber"
+          name="busNumber"
+          value={busFormValues.busNumber}
+          onChange={onBusFormChange}
+        />
       </div>
       <div className="flex flex-col items-start gap-1.5">
-        <Label htmlFor="bus-number">버스 번호</Label>
-        <Input id="bus-number" value="66" />
+        <Label htmlFor="stationId">정류소 ID</Label>
+        <Input
+          id="stationId"
+          name="stationId"
+          value={busFormValues.stationId}
+          onChange={onBusFormChange}
+        />
       </div>
       <div className="flex flex-col items-start gap-1.5">
-        <Label htmlFor="api-key">API Key</Label>
-        <Input id="api-key" value="1234567890" />
+        <Label htmlFor="stationOrder">정류소 순번</Label>
+        <Input
+          id="stationOrder"
+          name="stationOrder"
+          value={busFormValues.stationOrder}
+          onChange={onBusFormChange}
+        />
+      </div>
+      <div className="flex flex-col items-start gap-1.5">
+        <Label htmlFor="routeId">노선 ID</Label>
+        <Input
+          id="routeId"
+          name="routeId"
+          value={busFormValues.routeId}
+          onChange={onBusFormChange}
+        />
       </div>
     </div>
   );

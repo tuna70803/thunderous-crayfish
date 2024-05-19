@@ -1,3 +1,5 @@
+"use client";
+import { useState, type ChangeEventHandler } from "react";
 import { cn, type ClassValue } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -11,12 +13,38 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import BusSearchContent from "./BusSearchContent";
+import type { BusForm } from "./types";
 
 interface BusSearchProps {
   buttonClass?: ClassValue;
+  initBusFormValues?: BusForm;
+  onSearch: (busSearchValues: BusForm) => void;
 }
 
-const BusSearch = ({ buttonClass }: BusSearchProps) => {
+const BusSearch = ({
+  buttonClass,
+  initBusFormValues,
+  onSearch,
+}: BusSearchProps) => {
+  const [busFormValues, setBusFormValues] = useState<BusForm>({
+    busNumber: initBusFormValues?.busNumber ?? "",
+    stationId: initBusFormValues?.stationId ?? "",
+    stationOrder: initBusFormValues?.stationOrder ?? "",
+    routeId: initBusFormValues?.routeId ?? "",
+  });
+
+  const onBusFormChange: ChangeEventHandler<HTMLInputElement> = (event) => {
+    const { name, value } = event.target;
+    setBusFormValues((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }));
+  };
+
+  const onSearchClick = () => {
+    onSearch(busFormValues);
+  };
+
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -29,10 +57,14 @@ const BusSearch = ({ buttonClass }: BusSearchProps) => {
             조회할 다른 버스를 설정하고 조회 버튼을 눌러주세요
           </SheetDescription>
         </SheetHeader>
-        <BusSearchContent />
+        <BusSearchContent
+          className="mt-14"
+          busFormValues={busFormValues}
+          onBusFormChange={onBusFormChange}
+        />
         <SheetFooter className="mt-20 sm:justify-center">
           <SheetClose asChild>
-            <Button>조회</Button>
+            <Button onClick={onSearchClick}>조회</Button>
           </SheetClose>
         </SheetFooter>
       </SheetContent>

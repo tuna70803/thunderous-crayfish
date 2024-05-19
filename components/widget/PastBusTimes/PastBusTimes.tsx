@@ -1,34 +1,38 @@
 import {
   Table,
-  TableCaption,
   TableHeader,
   TableBody,
   TableRow,
   TableHead,
   TableCell,
 } from "@/components/ui/table";
-import type { PastType } from "./types";
-import PastTypeLabel from "./PastTypeLabel";
+import { cn } from "@/lib/utils";
 
 interface PastBusTimesProps {
-  pastType: PastType;
   arrivals: string[];
+  className?: string;
 }
 
-const PastBusTimes = ({ pastType, arrivals }: PastBusTimesProps) => {
+const PastBusTimes = ({ arrivals, className }: PastBusTimesProps) => {
+  const recentArrivals = arrivals.slice(1, 4);
+
+  if (recentArrivals.length === 0) {
+    return (
+      <p className={cn("text-slate-500", className)}>다음 예정 시간 없음</p>
+    );
+  }
+
   return (
-    <Table>
+    <Table className={cn("w-[100px] text-center", className)}>
       <TableHeader>
         <TableRow>
-          <TableHead>
-            <PastTypeLabel pastType={pastType} />
-          </TableHead>
+          <TableHead className="text-center">Next</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
-        {arrivals.map((arrival) => (
-          <TableRow key={`${pastType}-${arrival}`}>
-            <TableCell>{arrival}</TableCell>
+        {recentArrivals.map((arrival) => (
+          <TableRow key={arrival}>
+            <TableCell className="text-slate-600">{arrival}</TableCell>
           </TableRow>
         ))}
       </TableBody>

@@ -1,3 +1,5 @@
+import { memo } from "react";
+
 interface BusNumberProps {
   busNumber: string;
   // [TODO]
@@ -12,4 +14,4 @@ const BusNumber = ({ busNumber }: BusNumberProps) => {
   );
 };
 
-export default BusNumber;
+export default memo(BusNumber);

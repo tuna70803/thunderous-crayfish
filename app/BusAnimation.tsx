@@ -1,8 +1,7 @@
 "use client";
-
 import { Player } from "@lottiefiles/react-lottie-player";
 
-const Bus = () => {
+const BusAnimation = () => {
   return (
     <Player
       autoplay
@@ -16,4 +15,4 @@ const Bus = () => {
   );
 };
 
-export default Bus;
+export default BusAnimation;

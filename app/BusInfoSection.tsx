@@ -1,28 +1,55 @@
-import axios from "axios";
-import BusNumber from "@/components/widget/BusNumber";
-import BusArrivalTime from "@/components/widget/BusArrivalTime";
+"use client";
+import { useState } from "react";
+import BusDepartureCard from "@/components/widget/BusDepartureCard";
 import PastBusTimes from "@/components/widget/PastBusTimes/PastBusTimes";
+import { toDateString, toTimeString } from "@/utils/date";
+import { getSavedBusForm, saveBusForm } from "@/utils/storage";
+import BusSearch from "./BusSearch";
+import { BusForm } from "./types";
+import useBusArrivals from "./useBusArrivals";
 
-const BusInfoSection = async () => {
-  const res = await axios.get(`${process.env.NEXT_PUBLIC_API}/bus-info`, {
-    params: {
-      day: process.env.NEXT_PUBLIC_TEST_DAY,
-      routeId: process.env.NEXT_PUBLIC_TEST_ROUTE_ID,
-      stationId: process.env.NEXT_PUBLIC_TEST_STATION_ID,
-      stationOrder: process.env.NEXT_PUBLIC_TEST_STATION_ORDER,
-    },
+const BusInfoSection = () => {
+  const [busFormValues, setBusFormValues] = useState<BusForm>(
+    getSavedBusForm()
+  );
+
+  const onBusSearch = (busSearchValues: BusForm) => {
+    setBusFormValues({ ...busSearchValues });
+    saveBusForm(busSearchValues);
+  };
+
+  const busArrivals = useBusArrivals(busFormValues);
+  const currentTimestamp = Date.now();
+  const todayDateString = toDateString(currentTimestamp);
+  const pastBusTimestamps: number[] = busArrivals.map((busTime: string) => {
+    const todayTimestamp = todayDateString + "T" + busTime.slice(11);
+    return new Date(todayTimestamp).getTime();
   });
 
+  const futureTimestamps = pastBusTimestamps.filter(
+    (timestamp) => timestamp > currentTimestamp
+  );
+  const nextTargetTimestamp = futureTimestamps[0];
+
+  const futureTimes = futureTimestamps.map((timestamp) =>
+    toTimeString(timestamp)
+  );
+
   return (
-    <>
-      <BusNumber busNumber="66" />
-      <BusArrivalTime arrivalTime="08:38" />
-      <div className="flex flex-row gap-4 mt-6">
-        <PastBusTimes pastType="1day" arrivals={["08:00", "09:00", "10:00"]} />
-        <PastBusTimes pastType="2day" arrivals={["08:05", "09:05", "10:11"]} />
-        <PastBusTimes pastType="7day" arrivals={["08:33", "09:25", "10:32"]} />
+    <div className="flex flex-col items-center">
+      <BusDepartureCard
+        busNumber={busFormValues.busNumber}
+        nextTimestamp={nextTargetTimestamp}
+      />
+      <div className="mt-6">
+        <PastBusTimes arrivals={futureTimes} />
       </div>
-    </>
+      <BusSearch
+        buttonClass="mt-6"
+        initBusFormValues={busFormValues}
+        onSearch={onBusSearch}
+      />
+    </div>
   );
 };
 
