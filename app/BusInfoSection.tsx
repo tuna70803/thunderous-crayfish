@@ -36,7 +36,7 @@ const BusInfoSection = () => {
   );
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center overflow-auto p-10">
       <BusDepartureCard
         busNumber={busFormValues.busNumber}
         nextTimestamp={nextTargetTimestamp}
