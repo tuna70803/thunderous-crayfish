@@ -10,10 +10,10 @@ const Main = () => {
   return (
     <main className="h-screen min-h-screen flex flex-row">
       <ResizablePanelGroup direction="horizontal">
-        <ResizablePanel className="flex flex-auto justify-center items-center">
+        <ResizablePanel className="hidden sm:flex flex-auto justify-center items-center">
           <BusAnimation />
         </ResizablePanel>
-        <ResizableHandle />
+        <ResizableHandle className="hidden sm:flex" />
         <ResizablePanel className="flex flex-col justify-center items-center flex-auto basis-1/2 gap-8">
           <BusInfoSection />
         </ResizablePanel>
