@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { BusForm } from "./types";
 import { getPreviousWeekdayOrWeekend, toDateString } from "@/utils/date";
+import { BusForm } from "./types";
 
 const useBusArrivals = (busFormValues: BusForm) => {
   const [busArrivals, setBusArrivals] = useState([]);

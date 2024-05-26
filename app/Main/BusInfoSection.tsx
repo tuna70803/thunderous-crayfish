@@ -4,8 +4,8 @@ import BusDepartureCard from "@/components/widget/BusDepartureCard";
 import PastBusTimes from "@/components/widget/PastBusTimes/PastBusTimes";
 import { toDateString, toTimeString } from "@/utils/date";
 import { getSavedBusForm, saveBusForm } from "@/utils/storage";
+import type { BusForm } from "./types";
 import BusSearch from "./BusSearch";
-import { BusForm } from "./types";
 import useBusArrivals from "./useBusArrivals";
 
 const BusInfoSection = () => {

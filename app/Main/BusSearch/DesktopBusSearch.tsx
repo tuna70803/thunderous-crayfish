@@ -11,8 +11,8 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import type { BusForm } from "../types";
 import BusSearchContent from "./BusSearchContent";
-import { BusForm } from "./types";
 
 interface DesktopBusSearchProps {
   searchButtonClass?: ClassValue;

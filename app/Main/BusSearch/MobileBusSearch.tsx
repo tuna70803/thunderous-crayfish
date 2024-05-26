@@ -11,8 +11,8 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
+import type { BusForm } from "../types";
 import BusSearchContent from "./BusSearchContent";
-import { BusForm } from "./types";
 
 interface MobileBusSearchProps {
   searchButtonClass?: ClassValue;

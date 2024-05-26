@@ -2,7 +2,7 @@
 import { useState } from "react";
 import type { ClassValue } from "@/lib/utils";
 import useMediaQuery from "@/hooks/useMediaQuery";
-import type { BusForm } from "./types";
+import type { BusForm } from "../types";
 import DesktopBusSearch from "./DesktopBusSearch";
 import MobileBusSearch from "./MobileBusSearch";
 
