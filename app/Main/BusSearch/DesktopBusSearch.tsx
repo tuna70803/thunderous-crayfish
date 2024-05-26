@@ -1,5 +1,5 @@
 import type { ChangeEventHandler } from "react";
-import { type ClassValue, cn } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -11,22 +11,15 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import type { BusForm } from "../types";
 import BusSearchContent from "./BusSearchContent";
-
-interface DesktopBusSearchProps {
-  searchButtonClass?: ClassValue;
-  busFormValues: BusForm;
-  onBusFormChange: (name: string, newValue: string) => void;
-  onSearchClick: () => void;
-}
+import type { PlatformBusSearchProps } from "./types";
 
 const DesktopBusSearch = ({
   searchButtonClass,
   busFormValues,
   onBusFormChange,
   onSearchClick,
-}: DesktopBusSearchProps) => {
+}: PlatformBusSearchProps) => {
   const onDesktopBusFormChange: ChangeEventHandler<HTMLInputElement> = (
     event
   ) => {

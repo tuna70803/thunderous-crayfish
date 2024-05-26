@@ -1,5 +1,5 @@
 import type { ChangeEventHandler } from "react";
-import { type ClassValue, cn } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
   Drawer,
@@ -11,22 +11,15 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import type { BusForm } from "../types";
 import BusSearchContent from "./BusSearchContent";
-
-interface MobileBusSearchProps {
-  searchButtonClass?: ClassValue;
-  busFormValues: BusForm;
-  onBusFormChange: (name: string, newValue: string) => void;
-  onSearchClick: () => void;
-}
+import type { PlatformBusSearchProps } from "./types";
 
 const MobileBusSearch = ({
   searchButtonClass,
   busFormValues,
   onBusFormChange,
   onSearchClick,
-}: MobileBusSearchProps) => {
+}: PlatformBusSearchProps) => {
   const onMobileBusFormChange: ChangeEventHandler<HTMLInputElement> = (
     event
   ) => {
