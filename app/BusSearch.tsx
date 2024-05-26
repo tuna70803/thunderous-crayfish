@@ -1,19 +1,10 @@
 "use client";
-import { useState, type ChangeEventHandler } from "react";
-import { cn, type ClassValue } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import {
-  Sheet,
-  SheetClose,
-  SheetContent,
-  SheetDescription,
-  SheetFooter,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
-import BusSearchContent from "./BusSearchContent";
+import { useState } from "react";
+import type { ClassValue } from "@/lib/utils";
+import useMediaQuery from "@/hooks/useMediaQuery";
 import type { BusForm } from "./types";
+import DesktopBusSearch from "./DesktopBusSearch";
+import MobileBusSearch from "./MobileBusSearch";
 
 interface BusSearchProps {
   buttonClass?: ClassValue;
@@ -33,11 +24,10 @@ const BusSearch = ({
     routeId: initBusFormValues?.routeId ?? "",
   });
 
-  const onBusFormChange: ChangeEventHandler<HTMLInputElement> = (event) => {
-    const { name, value } = event.target;
+  const onBusFormChange = (name: string, newValue: string) => {
     setBusFormValues((prevValues) => ({
       ...prevValues,
-      [name]: value,
+      [name]: newValue,
     }));
   };
 
@@ -45,30 +35,25 @@ const BusSearch = ({
     onSearch(busFormValues);
   };
 
+  const isDesktop = useMediaQuery("(min-width: 640px)");
+  if (isDesktop) {
+    return (
+      <DesktopBusSearch
+        searchButtonClass={buttonClass}
+        busFormValues={busFormValues}
+        onBusFormChange={onBusFormChange}
+        onSearchClick={onSearchClick}
+      />
+    );
+  }
+
   return (
-    <Sheet>
-      <SheetTrigger asChild>
-        <Button className={cn(buttonClass)}>설정</Button>
-      </SheetTrigger>
-      <SheetContent className="w-1/2 sm:max-w-1/2">
-        <SheetHeader>
-          <SheetTitle>다른 버스 찾아보기</SheetTitle>
-          <SheetDescription>
-            조회할 다른 버스를 설정하고 조회 버튼을 눌러주세요
-          </SheetDescription>
-        </SheetHeader>
-        <BusSearchContent
-          className="mt-14"
-          busFormValues={busFormValues}
-          onBusFormChange={onBusFormChange}
-        />
-        <SheetFooter className="mt-20 sm:justify-center">
-          <SheetClose asChild>
-            <Button onClick={onSearchClick}>조회</Button>
-          </SheetClose>
-        </SheetFooter>
-      </SheetContent>
-    </Sheet>
+    <MobileBusSearch
+      searchButtonClass={buttonClass}
+      busFormValues={busFormValues}
+      onBusFormChange={onBusFormChange}
+      onSearchClick={onSearchClick}
+    />
   );
 };
 
