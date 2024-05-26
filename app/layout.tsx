@@ -25,6 +25,11 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Thunderous Crayfish Bus",
   description: "내 버스는 언제오나?",
+  robots: {
+    index: false,
+    follow: false,
+    nocache: true,
+  },
   icons: {
     other: [
       {
