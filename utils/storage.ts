@@ -1,5 +1,5 @@
 "use client";
-import type { BusForm } from "@/app/types";
+import type { BusForm } from "@/app/Main/types";
 
 const LOCAL_STORAGE_KEY = "last_saved_bus_form";
 const DEFAULT_BUS_FORM = {
