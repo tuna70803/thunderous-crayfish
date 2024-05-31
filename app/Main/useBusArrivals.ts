@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
-import { getPreviousWeekdayOrWeekend, toDateString } from "@/utils/date";
-import { BusForm } from "./types";
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { getPreviousWeekdayOrWeekend, toDateString } from '@/utils/date';
+import { BusForm } from './types';
 
 const useBusArrivals = (busFormValues: BusForm) => {
   const [busArrivals, setBusArrivals] = useState([]);
@@ -11,7 +11,7 @@ const useBusArrivals = (busFormValues: BusForm) => {
         const arrivals = await fetchBusArrivals(
           busFormValues.stationId,
           busFormValues.stationOrder,
-          busFormValues.routeId
+          busFormValues.routeId,
         );
 
         setBusArrivals(arrivals);
@@ -29,7 +29,7 @@ const useBusArrivals = (busFormValues: BusForm) => {
 const fetchBusArrivals = async (
   stationId: string,
   stationOrder: string,
-  routeId: string
+  routeId: string,
 ) => {
   try {
     const referenceTimestamp = getPreviousWeekdayOrWeekend(Date.now());

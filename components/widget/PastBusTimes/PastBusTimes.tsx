@@ -5,8 +5,8 @@ import {
   TableRow,
   TableHead,
   TableCell,
-} from "@/components/ui/table";
-import { cn } from "@/lib/utils";
+} from '@/components/ui/table';
+import { cn } from '@/lib/utils';
 
 interface PastBusTimesProps {
   arrivals: string[];
@@ -18,12 +18,12 @@ const PastBusTimes = ({ arrivals, className }: PastBusTimesProps) => {
 
   if (recentArrivals.length === 0) {
     return (
-      <p className={cn("text-slate-500", className)}>다음 예정 시간 없음</p>
+      <p className={cn('text-slate-500', className)}>다음 예정 시간 없음</p>
     );
   }
 
   return (
-    <Table className={cn("w-[100px] text-center", className)}>
+    <Table className={cn('w-[100px] text-center', className)}>
       <TableHeader>
         <TableRow>
           <TableHead className="text-center">Next</TableHead>

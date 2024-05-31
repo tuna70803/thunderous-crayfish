@@ -1,6 +1,6 @@
-"use client";
-import { useMemo, useState, useEffect } from "react";
-import { cn } from "@/lib/utils";
+'use client';
+import { useMemo, useState, useEffect } from 'react';
+import { cn } from '@/lib/utils';
 
 interface RemainTimeLabelProps {
   nextTimestamp: number;
@@ -20,11 +20,11 @@ const RemainTimeLabel = ({
 
   const remain = useMemo(
     () => Math.trunc((nextTimestamp - currentTimestamp) / MINUTE),
-    [nextTimestamp, currentTimestamp]
+    [nextTimestamp, currentTimestamp],
   );
 
   return (
-    <p className={cn("text-lg font-semibold", className)}>{remain}분 뒤</p>
+    <p className={cn('text-lg font-semibold', className)}>{remain}분 뒤</p>
   );
 };
 

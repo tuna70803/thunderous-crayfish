@@ -1,6 +1,6 @@
-import type { ChangeEventHandler } from "react";
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
+import type { ChangeEventHandler } from 'react';
+import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
 import {
   Drawer,
   DrawerClose,
@@ -10,9 +10,9 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from "@/components/ui/drawer";
-import BusSearchContent from "./BusSearchContent";
-import type { PlatformBusSearchProps } from "./types";
+} from '@/components/ui/drawer';
+import BusSearchContent from './BusSearchContent';
+import type { PlatformBusSearchProps } from './types';
 
 const MobileBusSearch = ({
   searchButtonClass,
@@ -21,7 +21,7 @@ const MobileBusSearch = ({
   onSearchClick,
 }: PlatformBusSearchProps) => {
   const onMobileBusFormChange: ChangeEventHandler<HTMLInputElement> = (
-    event
+    event,
   ) => {
     const { name, value } = event.target;
     onBusFormChange(name, value);

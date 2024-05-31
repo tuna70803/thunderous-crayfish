@@ -1,6 +1,6 @@
-import { useMemo } from "react";
-import { toTimeString } from "@/utils/date";
-import { cn } from "@/lib/utils";
+import { useMemo } from 'react';
+import { toTimeString } from '@/utils/date';
+import { cn } from '@/lib/utils';
 
 interface EstimatedArrivalTimeLabelProps {
   nextTimestamp: number;
@@ -13,11 +13,11 @@ const EstimatedArrivalTimeLabel = ({
 }: EstimatedArrivalTimeLabelProps) => {
   const timeString = useMemo(
     () => toTimeString(nextTimestamp),
-    [nextTimestamp]
+    [nextTimestamp],
   );
 
   return (
-    <small className={cn("text-sm font-medium leading-none", className)}>
+    <small className={cn('text-sm font-medium leading-none', className)}>
       {timeString} 출발 예정
     </small>
   );

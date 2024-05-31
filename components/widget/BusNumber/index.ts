@@ -1,1 +1,1 @@
-export { default } from "./BusNumber";
+export { default } from './BusNumber';

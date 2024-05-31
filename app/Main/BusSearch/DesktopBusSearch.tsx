@@ -1,6 +1,6 @@
-import type { ChangeEventHandler } from "react";
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
+import type { ChangeEventHandler } from 'react';
+import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
 import {
   Sheet,
   SheetClose,
@@ -10,9 +10,9 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet";
-import BusSearchContent from "./BusSearchContent";
-import type { PlatformBusSearchProps } from "./types";
+} from '@/components/ui/sheet';
+import BusSearchContent from './BusSearchContent';
+import type { PlatformBusSearchProps } from './types';
 
 const DesktopBusSearch = ({
   searchButtonClass,
@@ -21,7 +21,7 @@ const DesktopBusSearch = ({
   onSearchClick,
 }: PlatformBusSearchProps) => {
   const onDesktopBusFormChange: ChangeEventHandler<HTMLInputElement> = (
-    event
+    event,
   ) => {
     const { name, value } = event.target;
     onBusFormChange(name, value);
@@ -32,7 +32,7 @@ const DesktopBusSearch = ({
       <SheetTrigger asChild>
         <Button className={cn(searchButtonClass)}>설정</Button>
       </SheetTrigger>
-      <SheetContent className="w-1/2 sm:max-w-1/2">
+      <SheetContent className="sm:max-w-1/2 w-1/2">
         <SheetHeader>
           <SheetTitle>다른 버스 찾아보기</SheetTitle>
           <SheetDescription>

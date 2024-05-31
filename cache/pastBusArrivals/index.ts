@@ -1,2 +1,2 @@
-export * from "./pastBusArrivals";
-export * from "./types";
+export * from './pastBusArrivals';
+export * from './types';

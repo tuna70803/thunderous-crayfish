@@ -1,10 +1,10 @@
-"use client";
-import { useState } from "react";
-import type { ClassValue } from "@/lib/utils";
-import useMediaQuery from "@/hooks/useMediaQuery";
-import type { BusForm } from "../types";
-import DesktopBusSearch from "./DesktopBusSearch";
-import MobileBusSearch from "./MobileBusSearch";
+'use client';
+import { useState } from 'react';
+import type { ClassValue } from '@/lib/utils';
+import useMediaQuery from '@/hooks/useMediaQuery';
+import type { BusForm } from '../types';
+import DesktopBusSearch from './DesktopBusSearch';
+import MobileBusSearch from './MobileBusSearch';
 
 interface BusSearchProps {
   buttonClass?: ClassValue;
@@ -18,10 +18,10 @@ const BusSearch = ({
   onSearch,
 }: BusSearchProps) => {
   const [busFormValues, setBusFormValues] = useState<BusForm>({
-    busNumber: initBusFormValues?.busNumber ?? "",
-    stationId: initBusFormValues?.stationId ?? "",
-    stationOrder: initBusFormValues?.stationOrder ?? "",
-    routeId: initBusFormValues?.routeId ?? "",
+    busNumber: initBusFormValues?.busNumber ?? '',
+    stationId: initBusFormValues?.stationId ?? '',
+    stationOrder: initBusFormValues?.stationOrder ?? '',
+    routeId: initBusFormValues?.routeId ?? '',
   });
 
   const onBusFormChange = (name: string, newValue: string) => {
@@ -35,7 +35,7 @@ const BusSearch = ({
     onSearch(busFormValues);
   };
 
-  const isDesktop = useMediaQuery("(min-width: 640px)");
+  const isDesktop = useMediaQuery('(min-width: 640px)');
   if (isDesktop) {
     return (
       <DesktopBusSearch

@@ -1,6 +1,6 @@
-import axios from "axios";
-import type { PastBusArrivalParams } from "@/cache/pastBusArrivals";
-import type { ExternalPastBusArrivalsHistory } from "@/types";
+import axios from 'axios';
+import type { PastBusArrivalParams } from '@/cache/pastBusArrivals';
+import type { ExternalPastBusArrivalsHistory } from '@/types';
 
 export const fetchExternalPastBusArrivals = async ({
   day,
@@ -9,9 +9,9 @@ export const fetchExternalPastBusArrivals = async ({
   stationOrder,
 }: PastBusArrivalParams) => {
   try {
-    const res = await axios.get(process.env.EXTERNAL_BUS_API ?? "", {
+    const res = await axios.get(process.env.EXTERNAL_BUS_API ?? '', {
       params: {
-        serviceKey: process.env.EXTERNAL_BUS_SERVICE_KEY ?? "",
+        serviceKey: process.env.EXTERNAL_BUS_SERVICE_KEY ?? '',
         sDay: day,
         routeId,
         stationId,
@@ -28,7 +28,7 @@ export const fetchExternalPastBusArrivals = async ({
 export const toPastBusArrivals = (history: ExternalPastBusArrivalsHistory) => {
   const arrivalDates =
     history.response?.msgBody?.pastArrivalList?.map(
-      (item) => item.arrivalDate ?? ""
+      (item) => item.arrivalDate ?? '',
     ) ?? [];
 
   return arrivalDates.filter((item) => item);

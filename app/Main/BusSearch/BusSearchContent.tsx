@@ -1,8 +1,8 @@
-import type { ChangeEvent } from "react";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { cn } from "@/lib/utils";
-import type { BusForm } from "../types";
+import type { ChangeEvent } from 'react';
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
+import { cn } from '@/lib/utils';
+import type { BusForm } from '../types';
 
 interface BusSearchContentProps {
   className?: string;
@@ -16,7 +16,7 @@ const BusSearchContent = ({
   onBusFormChange,
 }: BusSearchContentProps) => {
   return (
-    <div className={cn("flex flex-col gap-8", className)}>
+    <div className={cn('flex flex-col gap-8', className)}>
       <div className="flex flex-col items-start gap-1.5">
         <Label htmlFor="busNumber">버스 번호</Label>
         <Input

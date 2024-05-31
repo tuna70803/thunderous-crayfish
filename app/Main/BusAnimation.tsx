@@ -1,5 +1,5 @@
-"use client";
-import { Player } from "@lottiefiles/react-lottie-player";
+'use client';
+import { Player } from '@lottiefiles/react-lottie-player';
 
 const BusAnimation = () => {
   return (
@@ -8,8 +8,8 @@ const BusAnimation = () => {
       loop
       src="/lottie/bus.json"
       style={{
-        width: "500px",
-        height: "500px",
+        width: '500px',
+        height: '500px',
       }}
     />
   );

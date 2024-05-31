@@ -1,17 +1,16 @@
-"use client";
-import { useState } from "react";
-import BusDepartureCard from "@/components/widget/BusDepartureCard";
-import PastBusTimes from "@/components/widget/PastBusTimes/PastBusTimes";
-import { toDateString, toTimeString } from "@/utils/date";
-import { getSavedBusForm, saveBusForm } from "@/utils/storage";
-import type { BusForm } from "./types";
-import BusSearch from "./BusSearch";
-import useBusArrivals from "./useBusArrivals";
+'use client';
+import { useState } from 'react';
+import BusDepartureCard from '@/components/widget/BusDepartureCard';
+import PastBusTimes from '@/components/widget/PastBusTimes/PastBusTimes';
+import { toDateString, toTimeString } from '@/utils/date';
+import { getSavedBusForm, saveBusForm } from '@/utils/storage';
+import type { BusForm } from './types';
+import BusSearch from './BusSearch';
+import useBusArrivals from './useBusArrivals';
 
-const BusInfoSection = () => {
-  const [busFormValues, setBusFormValues] = useState<BusForm>(
-    getSavedBusForm()
-  );
+function BusInfoSection() {
+  const [busFormValues, setBusFormValues] =
+    useState<BusForm>(getSavedBusForm());
 
   const onBusSearch = (busSearchValues: BusForm) => {
     setBusFormValues({ ...busSearchValues });
@@ -22,17 +21,17 @@ const BusInfoSection = () => {
   const currentTimestamp = Date.now();
   const todayDateString = toDateString(currentTimestamp);
   const pastBusTimestamps: number[] = busArrivals.map((busTime: string) => {
-    const todayTimestamp = todayDateString + "T" + busTime.slice(11);
+    const todayTimestamp = `${todayDateString}T${busTime.slice(11)}`;
     return new Date(todayTimestamp).getTime();
   });
 
   const futureTimestamps = pastBusTimestamps.filter(
-    (timestamp) => timestamp > currentTimestamp
+    (timestamp) => timestamp > currentTimestamp,
   );
   const nextTargetTimestamp = futureTimestamps[0];
 
   const futureTimes = futureTimestamps.map((timestamp) =>
-    toTimeString(timestamp)
+    toTimeString(timestamp),
   );
 
   return (
@@ -51,6 +50,6 @@ const BusInfoSection = () => {
       />
     </div>
   );
-};
+}
 
 export default BusInfoSection;

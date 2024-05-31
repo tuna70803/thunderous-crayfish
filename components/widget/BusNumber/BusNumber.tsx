@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo } from 'react';
 
 interface BusNumberProps {
   busNumber: string;
@@ -8,7 +8,7 @@ interface BusNumberProps {
 
 const BusNumber = ({ busNumber }: BusNumberProps) => {
   return (
-    <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl text-yellow-400">
+    <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight text-yellow-400 lg:text-5xl">
       {busNumber}
     </h1>
   );
