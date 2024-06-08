@@ -1,7 +1,11 @@
 'use client';
 import { Player } from '@lottiefiles/react-lottie-player';
 
-const BusAnimation = () => {
+/**
+ * 애니메이션 섹션 컴포넌트
+ * 화면에서 남는 부분에 애니메이션을 표시한다.
+ */
+const AnimationSection = () => {
   return (
     <Player
       autoplay
@@ -15,4 +19,4 @@ const BusAnimation = () => {
   );
 };
 
-export default BusAnimation;
+export default AnimationSection;

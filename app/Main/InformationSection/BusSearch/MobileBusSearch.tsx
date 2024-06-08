@@ -1,4 +1,3 @@
-import type { ChangeEventHandler } from 'react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import {
@@ -14,19 +13,18 @@ import {
 import BusSearchContent from './BusSearchContent';
 import type { PlatformBusSearchProps } from './types';
 
+/**
+ * 모바일 버스 조회 컴포넌트
+ * 모바일 화면에 맞게 구성한 버스 조회 화면을 표시한다.
+ * @param searchButtonClass - 조회 버튼에 적용할 class name
+ * @param onBusChange - 버스 선택 변경 이벤트 핸들러
+ * @param onSearchClick - 조회 버튼 클릭 이벤트 핸들러
+ */
 const MobileBusSearch = ({
   searchButtonClass,
-  busFormValues,
-  onBusFormChange,
+  onBusChange,
   onSearchClick,
 }: PlatformBusSearchProps) => {
-  const onMobileBusFormChange: ChangeEventHandler<HTMLInputElement> = (
-    event,
-  ) => {
-    const { name, value } = event.target;
-    onBusFormChange(name, value);
-  };
-
   return (
     <Drawer>
       <DrawerTrigger asChild>
@@ -39,11 +37,7 @@ const MobileBusSearch = ({
             조회할 다른 버스를 설정하고 조회 버튼을 눌러주세요
           </DrawerDescription>
         </DrawerHeader>
-        <BusSearchContent
-          className="mt-4 p-4"
-          busFormValues={busFormValues}
-          onBusFormChange={onMobileBusFormChange}
-        />
+        <BusSearchContent className="mt-4 p-4" onBusChange={onBusChange} />
         <DrawerFooter>
           <DrawerClose asChild>
             <Button onClick={onSearchClick}>조회</Button>

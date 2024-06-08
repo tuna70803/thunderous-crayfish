@@ -26,3 +26,19 @@ export interface ExternalPastBusArrivalsHistory {
 }
 
 export type PastBusArrival = string;
+
+export interface BusRoute {
+  districtCd: string;
+  regionName: string;
+  routeId: string;
+  routeName: string;
+  routeTypeCd: string;
+  routeTypeName: string;
+  staOrder: string;
+  stationId: string;
+}
+
+export interface LatLng {
+  lat: number;
+  lng: number;
+}

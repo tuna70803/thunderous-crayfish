@@ -1,4 +1,3 @@
-import type { ChangeEventHandler } from 'react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import {
@@ -14,19 +13,18 @@ import {
 import BusSearchContent from './BusSearchContent';
 import type { PlatformBusSearchProps } from './types';
 
+/**
+ * 데스크탑 버스 조회 컴포넌트
+ * 데스크탑 화면에 맞게 구성한 버스 조회 화면을 표시한다.
+ * @param searchButtonClass - 조회 버튼에 적용할 class name
+ * @param onBusChange - 버스 선택 변경 이벤트 핸들러
+ * @param onSearchClick - 조회 버튼 클릭 이벤트 핸들러
+ */
 const DesktopBusSearch = ({
   searchButtonClass,
-  busFormValues,
-  onBusFormChange,
+  onBusChange,
   onSearchClick,
 }: PlatformBusSearchProps) => {
-  const onDesktopBusFormChange: ChangeEventHandler<HTMLInputElement> = (
-    event,
-  ) => {
-    const { name, value } = event.target;
-    onBusFormChange(name, value);
-  };
-
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -39,11 +37,7 @@ const DesktopBusSearch = ({
             조회할 다른 버스를 설정하고 조회 버튼을 눌러주세요
           </SheetDescription>
         </SheetHeader>
-        <BusSearchContent
-          className="mt-14"
-          busFormValues={busFormValues}
-          onBusFormChange={onDesktopBusFormChange}
-        />
+        <BusSearchContent className="mt-14" onBusChange={onBusChange} />
         <SheetFooter className="mt-20 sm:justify-center">
           <SheetClose asChild>
             <Button onClick={onSearchClick}>조회</Button>

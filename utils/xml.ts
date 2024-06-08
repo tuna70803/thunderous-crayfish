@@ -1,5 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+// [TODO]
+// DOMParser를 node.js 환경에서도 사용할 수 있어야하는지 확인
+// 필요하다면 xmldom 같은 라이브러리를 사용해야할 수 있음
+
 /**
  * xml string을 object로 변환해서 리턴한다.
  * @param xmlString - xml string

@@ -3,21 +3,31 @@ import { useState } from 'react';
 import BusDepartureCard from '@/components/widget/BusDepartureCard';
 import PastBusTimes from '@/components/widget/PastBusTimes/PastBusTimes';
 import { toDateString, toTimeString } from '@/utils/date';
-import { getSavedBusForm, saveBusForm } from '@/utils/storage';
-import type { BusForm } from './types';
+import { getSavedBusRoute, saveBusRoute } from '@/utils/storage';
+import type { BusRoute } from '@/types';
 import BusSearch from './BusSearch';
 import useBusArrivals from './useBusArrivals';
 
-function BusInfoSection() {
-  const [busFormValues, setBusFormValues] =
-    useState<BusForm>(getSavedBusForm());
+/**
+ * 버스 정보 섹션 컴포넌트
+ * 선택한 버스의 도착 시간들을 표시한다.
+ * 다른 버스를 선택할 수 있는 기능도 제공한다.
+ */
+const InformationSection = () => {
+  const [currentBusRoute, setCurrentBusRoute] = useState<BusRoute | null>(
+    getSavedBusRoute(),
+  );
 
-  const onBusSearch = (busSearchValues: BusForm) => {
-    setBusFormValues({ ...busSearchValues });
-    saveBusForm(busSearchValues);
+  const onBusSearch = (targetBus: BusRoute | null) => {
+    if (!targetBus) {
+      return;
+    }
+
+    setCurrentBusRoute({ ...targetBus });
+    saveBusRoute(targetBus);
   };
 
-  const busArrivals = useBusArrivals(busFormValues);
+  const busArrivals = useBusArrivals(currentBusRoute);
   const currentTimestamp = Date.now();
   const todayDateString = toDateString(currentTimestamp);
   const pastBusTimestamps: number[] = busArrivals.map((busTime: string) => {
@@ -37,19 +47,15 @@ function BusInfoSection() {
   return (
     <div className="flex flex-col items-center overflow-auto p-10">
       <BusDepartureCard
-        busNumber={busFormValues.busNumber}
-        nextTimestamp={nextTargetTimestamp}
+        busNumber={currentBusRoute?.routeName ?? ''}
+        nextTimestamp={nextTargetTimestamp ?? ''}
       />
       <div className="mt-6">
         <PastBusTimes arrivals={futureTimes} />
       </div>
-      <BusSearch
-        buttonClass="mt-6"
-        initBusFormValues={busFormValues}
-        onSearch={onBusSearch}
-      />
+      <BusSearch buttonClass="mt-6" onSearch={onBusSearch} />
     </div>
   );
-}
+};
 
-export default BusInfoSection;
+export default InformationSection;

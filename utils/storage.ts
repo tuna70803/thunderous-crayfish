@@ -1,35 +1,29 @@
 'use client';
-import type { BusForm } from '@/app/Main/types';
+import type { BusRoute } from '@/types';
 
-const LOCAL_STORAGE_KEY = 'last_saved_bus_form';
-const DEFAULT_BUS_FORM = {
-  busNumber: process.env.NEXT_PUBLIC_TEST_BUS_NUMBER ?? '',
-  stationId: process.env.NEXT_PUBLIC_TEST_STATION_ID ?? '',
-  stationOrder: process.env.NEXT_PUBLIC_TEST_STATION_ORDER ?? '',
-  routeId: process.env.NEXT_PUBLIC_TEST_ROUTE_ID ?? '',
-};
+const LOCAL_STORAGE_KEY = 'last_saved_bus_route';
 
-export const getSavedBusForm = (): BusForm => {
+export const getSavedBusRoute = (): BusRoute | null => {
   if (typeof window === 'undefined') {
-    return DEFAULT_BUS_FORM;
+    return null;
   }
 
-  const savedBusForm = localStorage.getItem(LOCAL_STORAGE_KEY);
-  if (!savedBusForm) {
-    return DEFAULT_BUS_FORM;
+  const savedBusRoute = localStorage.getItem(LOCAL_STORAGE_KEY);
+  if (!savedBusRoute) {
+    return null;
   }
 
   try {
-    return JSON.parse(savedBusForm);
+    return JSON.parse(savedBusRoute);
   } catch {
-    return DEFAULT_BUS_FORM;
+    return null;
   }
 };
 
-export const saveBusForm = (busFormValues: BusForm) => {
+export const saveBusRoute = (busRoute: BusRoute) => {
   if (typeof window === 'undefined') {
     return;
   }
 
-  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(busFormValues));
+  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(busRoute));
 };
