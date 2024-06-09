@@ -39,7 +39,7 @@ const KakaoMap = ({
       const location = currentLocation ? currentLocation : SEOUL_LOCATION_INFO;
       const mapOptions = {
         center: new window.kakao.maps.LatLng(location.lat, location.lng),
-        level: 2,
+        level: 3,
       };
 
       const mapInstance = new window.kakao.maps.Map(containerEl, mapOptions);

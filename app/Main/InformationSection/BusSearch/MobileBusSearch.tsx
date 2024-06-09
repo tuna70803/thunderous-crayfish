@@ -37,7 +37,12 @@ const MobileBusSearch = ({
             조회할 다른 버스를 설정하고 조회 버튼을 눌러주세요
           </DrawerDescription>
         </DrawerHeader>
-        <BusSearchContent className="mt-4 p-4" onBusChange={onBusChange} />
+        <BusSearchContent
+          className="mt-4 p-4"
+          stationSeletorClassName="h-52"
+          busSelectorClassName="max-h-60 overflow-y-auto"
+          onBusChange={onBusChange}
+        />
         <DrawerFooter>
           <DrawerClose asChild>
             <Button onClick={onSearchClick}>조회</Button>

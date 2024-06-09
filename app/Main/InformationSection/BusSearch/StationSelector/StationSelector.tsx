@@ -39,7 +39,7 @@ const StationSelector = ({ className, onSelect }: StationSelectorProps) => {
   );
 
   return (
-    <div className={cn(className)}>
+    <div className={cn('h-96', className)}>
       <KakaoMap
         stations={stations}
         currentLocation={currentLocation}

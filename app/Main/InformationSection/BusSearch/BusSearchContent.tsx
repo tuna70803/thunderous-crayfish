@@ -9,6 +9,8 @@ import BusSelector from './BusSelector';
 
 interface BusSearchContentProps {
   className?: string;
+  stationSeletorClassName?: string;
+  busSelectorClassName?: string;
   onBusChange: (targetBus: BusRoute) => void;
 }
 
@@ -16,11 +18,15 @@ interface BusSearchContentProps {
  * 버스 조회 컨텐트 컴포넌트
  * 현재 위치를 중심으로 지도위에 버스 정류소를 표시한다.
  * 버스 정류소를 선택하면 해당 정류소를 지나는 버스 목록을 표시하고 선택할 수 있다.
- * @param className - 적용할 class name
+ * @param className - 컴포넌트에 적용할 class name
+ * @param stationSeletorClassName - 버스 정류소 선택 맵에 적용할 class name
+ * @param busSelectorClassName - 버스 선택 목록에 적용할 class name
  * @param onBusChange - 버스 변경 이벤트 핸들러
  */
 const BusSearchContent = ({
   className,
+  stationSeletorClassName,
+  busSelectorClassName,
   onBusChange,
 }: BusSearchContentProps) => {
   const [busRoutes, setBusRoutes] = useState<BusRoute[]>([]);
@@ -40,8 +46,12 @@ const BusSearchContent = ({
 
   return (
     <div className={cn('flex flex-col gap-8', className)}>
-      <StationSelector className="h-[400px]" onSelect={onStationSelect} />
+      <StationSelector
+        className={stationSeletorClassName}
+        onSelect={onStationSelect}
+      />
       <BusSelector
+        className={busSelectorClassName}
         busRoutes={busRoutes}
         currentBusRoute={currentBusRoute}
         onSelect={onTargetBusSelect}
