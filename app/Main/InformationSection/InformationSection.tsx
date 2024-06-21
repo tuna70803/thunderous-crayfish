@@ -38,7 +38,7 @@ const InformationSection = () => {
   const futureTimestamps = pastBusTimestamps.filter(
     (timestamp) => timestamp > currentTimestamp,
   );
-  const nextTargetTimestamp = futureTimestamps[0];
+  const nextTargetTimestamp = futureTimestamps[0] ?? null;
 
   const futureTimes = futureTimestamps.map((timestamp) =>
     toTimeString(timestamp),
@@ -48,7 +48,7 @@ const InformationSection = () => {
     <div className="flex flex-col items-center overflow-auto p-10">
       <BusDepartureCard
         busNumber={currentBusRoute?.routeName ?? ''}
-        nextTimestamp={nextTargetTimestamp ?? ''}
+        nextTimestamp={nextTargetTimestamp}
       />
       <div className="mt-6">
         <PastBusTimes arrivals={futureTimes} />

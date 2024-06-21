@@ -3,7 +3,7 @@ import { useMemo, useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 
 interface RemainTimeLabelProps {
-  nextTimestamp: number;
+  nextTimestamp: number | null;
   className?: string;
 }
 
@@ -18,10 +18,17 @@ const RemainTimeLabel = ({
     }, REFRESH_TIME);
   }, []);
 
-  const remain = useMemo(
-    () => Math.trunc((nextTimestamp - currentTimestamp) / MINUTE),
-    [nextTimestamp, currentTimestamp],
-  );
+  const remain = useMemo(() => {
+    if (!nextTimestamp) {
+      return null;
+    }
+
+    return Math.trunc((nextTimestamp - currentTimestamp) / MINUTE);
+  }, [nextTimestamp, currentTimestamp]);
+
+  if (!remain) {
+    return <p className={cn('text-lg font-semibold', className)}>예정 없음</p>;
+  }
 
   return (
     <p className={cn('text-lg font-semibold', className)}>{remain}분 뒤</p>

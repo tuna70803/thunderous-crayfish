@@ -12,7 +12,7 @@ import EstimatedArrivalTimeLabel from './EstimatedArrivalTimeLabel';
 
 interface BusDepartureCardProps {
   busNumber: string;
-  nextTimestamp: number;
+  nextTimestamp: number | null;
 }
 
 const BusDepartureCard = ({
