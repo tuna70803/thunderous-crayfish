@@ -31,7 +31,7 @@ const KakaoMap = ({
 
   useEffect(() => {
     const containerEl = mapContainerRef.current;
-    if (!window.kakao || !containerEl) {
+    if (!window.kakao.maps || !containerEl || map) {
       return;
     }
 
@@ -49,7 +49,7 @@ const KakaoMap = ({
     return () => {
       setMap(null);
     };
-  }, [currentLocation]);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (!map) {
