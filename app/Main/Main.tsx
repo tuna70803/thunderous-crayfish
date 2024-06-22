@@ -22,7 +22,8 @@ const Main = () => {
         )}
       />
       <Card className="relative z-10 h-full w-full border-0 bg-background sm:h-[70%] sm:min-h-[640px] sm:w-[70%] sm:min-w-[1200px] sm:border">
-        <CardContent className="h-full w-full p-0">
+        <BorderBeam className="hidden sm:block" size={500} duration={30} />
+        <CardContent className="relative h-full w-full p-0">
           <ResizablePanelGroup direction="horizontal">
             <ResizablePanel className="hidden flex-auto items-center justify-center sm:flex">
               <AnimationSection />
@@ -33,7 +34,6 @@ const Main = () => {
             </ResizablePanel>
           </ResizablePanelGroup>
         </CardContent>
-        <BorderBeam className="hidden sm:block" size={500} duration={30} />
       </Card>
     </main>
   );
