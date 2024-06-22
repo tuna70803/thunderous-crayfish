@@ -3,6 +3,9 @@ import {
   ResizablePanel,
   ResizableHandle,
 } from '@/components/ui/resizable';
+import { Card, CardContent } from '@/components/ui/card';
+import { DotPattern } from '@/components/magicui/dot-pattern';
+import { cn } from '@/lib/utils';
 import AnimationSection from './AnimationSection';
 import InformationSection from './InformationSection';
 
@@ -11,16 +14,25 @@ import InformationSection from './InformationSection';
  */
 const Main = () => {
   return (
-    <main className="flex h-screen min-h-screen flex-row">
-      <ResizablePanelGroup direction="horizontal">
-        <ResizablePanel className="hidden flex-auto items-center justify-center sm:flex">
-          <AnimationSection />
-        </ResizablePanel>
-        <ResizableHandle className="hidden sm:flex" />
-        <ResizablePanel className="flex flex-auto basis-1/2 flex-col items-center justify-center gap-8">
-          <InformationSection />
-        </ResizablePanel>
-      </ResizablePanelGroup>
+    <main className="relative flex h-screen min-h-screen flex-row items-center justify-center">
+      <DotPattern
+        className={cn(
+          '[mask-image:radial-gradient(farthest-corner,white,transparent)]',
+        )}
+      />
+      <Card className="z-10 h-full w-full border-0 bg-background sm:h-[70%] sm:min-h-[640px] sm:w-[70%] sm:min-w-[1200px] sm:border">
+        <CardContent className="h-full w-full p-0">
+          <ResizablePanelGroup direction="horizontal">
+            <ResizablePanel className="hidden flex-auto items-center justify-center sm:flex">
+              <AnimationSection />
+            </ResizablePanel>
+            <ResizableHandle className="hidden sm:flex" />
+            <ResizablePanel className="flex flex-auto basis-1/2 flex-col items-center justify-center gap-8">
+              <InformationSection />
+            </ResizablePanel>
+          </ResizablePanelGroup>
+        </CardContent>
+      </Card>
     </main>
   );
 };
