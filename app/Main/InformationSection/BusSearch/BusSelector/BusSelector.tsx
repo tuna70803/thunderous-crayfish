@@ -1,5 +1,6 @@
 import { Check as CheckIcon } from 'lucide-react';
 import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
+import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import type { BusRoute } from '@/types';
 
 interface BusSelectorProps {
@@ -33,27 +34,30 @@ const BusSelector = ({
   }
 
   return (
-    <div className={className}>
-      <Table>
-        <TableBody>
-          {busRoutes.map((route: BusRoute) => (
-            <TableRow
-              key={route.routeId}
-              className={`cursor-pointer ${currentBusRoute?.routeId === route.routeId && 'bg-muted/50'}`}
-              onClick={() => onSelect(route)}
-            >
-              <TableCell>{route.routeTypeName}</TableCell>
-              <TableCell>{route.routeName}</TableCell>
-              <TableCell className="w-[50px]">
-                {currentBusRoute?.routeId === route.routeId && (
-                  <CheckIcon className="stroke-gray-500" />
-                )}
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </div>
+    <ScrollArea>
+      <div className={className}>
+        <Table>
+          <TableBody>
+            {busRoutes.map((route: BusRoute) => (
+              <TableRow
+                key={route.routeId}
+                className={`cursor-pointer ${currentBusRoute?.routeId === route.routeId && 'bg-muted/50'}`}
+                onClick={() => onSelect(route)}
+              >
+                <TableCell>{route.routeTypeName}</TableCell>
+                <TableCell>{route.routeName}</TableCell>
+                <TableCell className="w-[50px]">
+                  {currentBusRoute?.routeId === route.routeId && (
+                    <CheckIcon className="stroke-gray-500" />
+                  )}
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
+      <ScrollBar orientation="vertical" />
+    </ScrollArea>
   );
 };
 

@@ -1,10 +1,19 @@
-'use client';
 import { useState } from 'react';
 import type { ClassValue } from '@/lib/utils';
-import useMediaQuery from '@/hooks/useMediaQuery';
 import type { BusRoute } from '@/types';
-import DesktopBusSearch from './DesktopBusSearch';
-import MobileBusSearch from './MobileBusSearch';
+import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from '@/components/ui/drawer';
+import BusSearchContent from './BusSearchContent';
 
 interface BusSearchProps {
   buttonClass?: ClassValue;
@@ -27,23 +36,33 @@ const BusSearch = ({ buttonClass, onSearch }: BusSearchProps) => {
     onSearch(targetBusRoute);
   };
 
-  const isDesktop = useMediaQuery('(min-width: 640px)');
-  if (isDesktop) {
-    return (
-      <DesktopBusSearch
-        searchButtonClass={buttonClass}
-        onBusChange={onBusChange}
-        onSearchClick={onSearchClick}
-      />
-    );
-  }
-
   return (
-    <MobileBusSearch
-      searchButtonClass={buttonClass}
-      onBusChange={onBusChange}
-      onSearchClick={onSearchClick}
-    />
+    <Drawer>
+      <DrawerTrigger asChild>
+        <Button className={cn(buttonClass)}>설정</Button>
+      </DrawerTrigger>
+      <DrawerContent>
+        <DrawerHeader>
+          <DrawerTitle>다른 버스 찾아보기</DrawerTitle>
+          <DrawerDescription>
+            조회할 다른 버스를 설정하고 조회 버튼을 눌러주세요
+          </DrawerDescription>
+        </DrawerHeader>
+        <BusSearchContent
+          className="mt-4 p-4"
+          stationSeletorClassName="h-52 sm:h-96"
+          busSelectorClassName="max-h-60 sm:max-h-96"
+          onBusChange={onBusChange}
+        />
+        <DrawerFooter>
+          <DrawerClose asChild>
+            <Button className="sm:mx-auto sm:w-1/3" onClick={onSearchClick}>
+              조회
+            </Button>
+          </DrawerClose>
+        </DrawerFooter>
+      </DrawerContent>
+    </Drawer>
   );
 };
 

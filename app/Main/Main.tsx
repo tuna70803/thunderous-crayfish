@@ -5,10 +5,10 @@ import {
 } from '@/components/ui/resizable';
 import { Card, CardContent } from '@/components/ui/card';
 import { DotPattern } from '@/components/magicui/dot-pattern';
+import { BorderBeam } from '@/components/magicui/border-beam';
 import { cn } from '@/lib/utils';
 import AnimationSection from './AnimationSection';
 import InformationSection from './InformationSection';
-import { BorderBeam } from '@/components/magicui/border-beam';
 
 /**
  * 메인 화면 컴포넌트
