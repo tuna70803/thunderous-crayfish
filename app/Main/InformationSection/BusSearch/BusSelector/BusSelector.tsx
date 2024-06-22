@@ -27,7 +27,7 @@ const BusSelector = ({
 }: BusSelectorProps) => {
   if (busRoutes.length === 0) {
     return (
-      <p className="py-4 text-sm text-muted-foreground">
+      <p className="self-center py-4 text-sm text-muted-foreground">
         지도에서 버스 정류소를 선택해주세요
       </p>
     );

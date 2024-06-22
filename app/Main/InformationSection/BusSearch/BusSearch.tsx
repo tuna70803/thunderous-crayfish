@@ -49,9 +49,9 @@ const BusSearch = ({ buttonClass, onSearch }: BusSearchProps) => {
           </DrawerDescription>
         </DrawerHeader>
         <BusSearchContent
-          className="mt-4 p-4"
+          className="p-0 sm:mt-4 sm:p-4"
           stationSeletorClassName="h-52 sm:h-96"
-          busSelectorClassName="max-h-60 sm:max-h-96"
+          busSelectorClassName="px-2 max-h-60 sm:max-h-96 sm:px-0"
           onBusChange={onBusChange}
         />
         <DrawerFooter>
