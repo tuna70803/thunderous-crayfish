@@ -1,4 +1,5 @@
 import { cn, type ClassValue } from '@/lib/utils';
+import TypingAnimation from '@/components/magicui/typing-animation';
 
 interface ReferenceDateLabelProps {
   date: string;
@@ -13,9 +14,11 @@ interface ReferenceDateLabelProps {
  */
 const ReferenceDateLabel = ({ date, className }: ReferenceDateLabelProps) => {
   return (
-    <p className={cn('text-xs text-muted-foreground', className)}>
-      {date} 기준
-    </p>
+    <TypingAnimation
+      className={cn('text-xs font-normal text-muted-foreground', className)}
+      duration={250}
+      text={`${date} 기준`}
+    />
   );
 };
 

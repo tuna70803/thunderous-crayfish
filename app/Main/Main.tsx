@@ -8,19 +8,20 @@ import { DotPattern } from '@/components/magicui/dot-pattern';
 import { cn } from '@/lib/utils';
 import AnimationSection from './AnimationSection';
 import InformationSection from './InformationSection';
+import { BorderBeam } from '@/components/magicui/border-beam';
 
 /**
  * 메인 화면 컴포넌트
  */
 const Main = () => {
   return (
-    <main className="relative flex h-screen min-h-screen flex-row items-center justify-center">
+    <main className="relative flex h-screen min-h-screen flex-row items-center justify-center overflow-hidden">
       <DotPattern
         className={cn(
           '[mask-image:radial-gradient(farthest-corner,white,transparent)]',
         )}
       />
-      <Card className="z-10 h-full w-full border-0 bg-background sm:h-[70%] sm:min-h-[640px] sm:w-[70%] sm:min-w-[1200px] sm:border">
+      <Card className="relative z-10 h-full w-full border-0 bg-background sm:h-[70%] sm:min-h-[640px] sm:w-[70%] sm:min-w-[1200px] sm:border">
         <CardContent className="h-full w-full p-0">
           <ResizablePanelGroup direction="horizontal">
             <ResizablePanel className="hidden flex-auto items-center justify-center sm:flex">
@@ -32,6 +33,7 @@ const Main = () => {
             </ResizablePanel>
           </ResizablePanelGroup>
         </CardContent>
+        <BorderBeam className="hidden sm:block" size={500} duration={30} />
       </Card>
     </main>
   );
