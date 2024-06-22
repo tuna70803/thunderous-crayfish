@@ -3,6 +3,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
 import { fetchNearbyBusStations } from '@/apis/publicDataPortal';
 import { xmlStringToObject } from '@/utils/xml';
+import { toFixedNumber } from '@/utils/number';
 import type { LatLng } from '@/types';
 import type { StationInfo } from './types';
 import KakaoMap from './KakaoMap';
@@ -65,11 +66,18 @@ const getNearbyBusStations = async (
       id: item.stationId,
       name: item.stationName,
       latlng: {
-        lat: Number(item.y),
-        lng: Number(item.x),
+        lat: toFixedNumber(item.y, DECIMAL_PRECISION),
+        lng: toFixedNumber(item.x, DECIMAL_PRECISION),
       },
     })) ?? []
   );
 };
+
+/**
+ * 소수점 자리 수 정확도
+ * 위치 값이 너무 상세하면 지도의 버스 정류장 표시랑 차이가 많이나는 경우가 많다.
+ * 지도와 가능한 가까운 위치가 될 수 있는 소수점 자리수로 제한한다.
+ */
+const DECIMAL_PRECISION = 5;
 
 export default StationSelector;
