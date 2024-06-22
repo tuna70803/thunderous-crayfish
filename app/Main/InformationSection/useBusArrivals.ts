@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
 import { fetchBusInfo } from '@/apis/internal';
-import { getPreviousWeekdayOrWeekend, toDateString } from '@/utils/date';
 import type { BusRoute } from '@/types';
 
 /**
  * 버스의 과거 도착 시간들을 사용한다.
  * @param busRoute - 버스 정보
+ * @param referenceDate - 조회할 과거 날짜
  * @returns 버스의 과거 도착 시간 목록
  */
-const useBusArrivals = (busRoute: BusRoute | null) => {
+const useBusArrivals = (busRoute: BusRoute | null, referenceDate: string) => {
   const [busArrivals, setBusArrivals] = useState([]);
   useEffect(() => {
     if (!busRoute) {
@@ -21,6 +21,7 @@ const useBusArrivals = (busRoute: BusRoute | null) => {
           busRoute.stationId,
           busRoute.staOrder,
           busRoute.routeId,
+          referenceDate,
         );
 
         setBusArrivals(arrivals);
@@ -30,7 +31,7 @@ const useBusArrivals = (busRoute: BusRoute | null) => {
     };
 
     saveBusArrivals();
-  }, [busRoute]);
+  }, [busRoute, referenceDate]);
 
   return busArrivals;
 };
@@ -44,21 +45,21 @@ const useBusArrivals = (busRoute: BusRoute | null) => {
  * @param stationId - 버스 정류소 id
  * @param stationOrder - 버스 정류소의 노선 운행 순서
  * @param routeId - 버스 노선 id
+ * @param referenceDate - 조회할 과거 날짜
  * @returns 과거 버스 도착 시간 목록
  */
 const getBusArrivals = async (
   stationId: string,
   stationOrder: string,
   routeId: string,
+  referenceDate: string,
 ) => {
   try {
-    const referenceTimestamp = getPreviousWeekdayOrWeekend(Date.now());
-    const referenceDateString = toDateString(referenceTimestamp);
     const busArrivals = await fetchBusInfo(
       stationId,
       stationOrder,
       routeId,
-      referenceDateString,
+      referenceDate,
     );
 
     return busArrivals;

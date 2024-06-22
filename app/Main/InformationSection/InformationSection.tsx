@@ -7,6 +7,7 @@ import { getSavedBusRoute, saveBusRoute } from '@/utils/storage';
 import type { BusRoute } from '@/types';
 import BusSearch from './BusSearch';
 import useBusArrivals from './useBusArrivals';
+import useReferenceDate from './useReferenceDate';
 
 /**
  * 버스 정보 섹션 컴포넌트
@@ -27,7 +28,8 @@ const InformationSection = () => {
     saveBusRoute(targetBus);
   };
 
-  const busArrivals = useBusArrivals(currentBusRoute);
+  const referenceDate = useReferenceDate();
+  const busArrivals = useBusArrivals(currentBusRoute, referenceDate);
   const currentTimestamp = Date.now();
   const todayDateString = toDateString(currentTimestamp);
   const pastBusTimestamps: number[] = busArrivals.map((busTime: string) => {
@@ -49,6 +51,7 @@ const InformationSection = () => {
       <BusDepartureCard
         busNumber={currentBusRoute?.routeName ?? ''}
         nextTimestamp={nextTargetTimestamp}
+        referenceDate={referenceDate}
       />
       <div className="mt-6">
         <PastBusTimes arrivals={futureTimes} />
