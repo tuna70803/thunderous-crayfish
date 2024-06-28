@@ -1,4 +1,5 @@
 import { Check as CheckIcon } from 'lucide-react';
+import { cn } from '@/lib/utils';
 import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import type { BusRoute } from '@/types';
@@ -27,9 +28,13 @@ const BusSelector = ({
 }: BusSelectorProps) => {
   if (busRoutes.length === 0) {
     return (
-      <p className="self-center py-4 text-sm text-muted-foreground">
-        지도에서 버스 정류소를 선택해주세요
-      </p>
+      <div
+        className={cn('flex flex-row items-center justify-center', className)}
+      >
+        <p className="text-sm text-muted-foreground">
+          지도에서 버스 정류소를 선택해주세요
+        </p>
+      </div>
     );
   }
 
