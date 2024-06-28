@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import BusDepartureCard from '@/components/widget/BusDepartureCard';
 import PastBusTimes from '@/components/widget/PastBusTimes/PastBusTimes';
-import { toDateString, toTimeString } from '@/utils/date';
+import { toDateString, toTimeString } from '@/utils/dateTime';
 import { getSavedBusRoute, saveBusRoute } from '@/utils/storage';
 import type { BusRoute } from '@/types';
 import BusSearch from './BusSearch';

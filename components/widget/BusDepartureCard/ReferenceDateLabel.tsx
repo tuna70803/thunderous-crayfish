@@ -16,7 +16,7 @@ const ReferenceDateLabel = ({ date, className }: ReferenceDateLabelProps) => {
   return (
     <TypingAnimation
       className={cn('text-xs font-normal text-muted-foreground', className)}
-      duration={250}
+      duration={150}
       text={`${date} 기준`}
     />
   );

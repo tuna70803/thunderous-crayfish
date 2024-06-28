@@ -8,7 +8,7 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import BusNumber from '../BusNumber';
 import RemainTimeLabel from './RemainTimeLabel';
-import EstimatedArrivalTimeLabel from './EstimatedArrivalTimeLabel';
+import EstimatedDepartureTimeLabel from './EstimatedDepartureTimeLabel';
 import ReferenceDateLabel from './ReferenceDateLabel';
 
 interface BusDepartureCardProps {
@@ -50,7 +50,7 @@ const BusDepartureCard = ({
         <CardDescription className="mt-2 px-6">마을버스</CardDescription>
         <CardContent className="mt-6 flex flex-col gap-1">
           <RemainTimeLabel nextTimestamp={nextTimestamp} />
-          <EstimatedArrivalTimeLabel nextTimestamp={nextTimestamp} />
+          <EstimatedDepartureTimeLabel nextTimestamp={nextTimestamp} />
         </CardContent>
       </Card>
       <ReferenceDateLabel date={referenceDate} className="mr-2" />

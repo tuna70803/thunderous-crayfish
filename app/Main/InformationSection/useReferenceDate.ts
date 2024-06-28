@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { getPreviousWeekdayOrWeekend, toDateString } from '@/utils/date';
+import { getPreviousWeekdayOrWeekend, toDateString } from '@/utils/dateTime';
 
 /**
  * 레퍼런스 날짜를 사용한다.

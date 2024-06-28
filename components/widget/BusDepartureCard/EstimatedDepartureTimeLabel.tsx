@@ -1,17 +1,23 @@
 import { useMemo } from 'react';
-import { toTimeString } from '@/utils/date';
+import { toTimeString } from '@/utils/dateTime';
 import { cn } from '@/lib/utils';
 import GradualSpacing from '@/components/magicui/gradual-spacing';
 
-interface EstimatedArrivalTimeLabelProps {
+interface EstimatedDepartureTimeLabelProps {
   nextTimestamp: number | null;
   className?: string;
 }
 
-const EstimatedArrivalTimeLabel = ({
+/**
+ * 버스 예상 출발 시간 컴포넌트
+ * 이전 출발 타임스탬프로 몇시 몇분에 출발 예정인지 표시한다.
+ * @param nextTimestamp - 다음 버스 출발 타임스탬프
+ * @param className - class name
+ */
+const EstimatedDepartureTimeLabel = ({
   nextTimestamp,
   className,
-}: EstimatedArrivalTimeLabelProps) => {
+}: EstimatedDepartureTimeLabelProps) => {
   const timeString = useMemo(() => {
     if (!nextTimestamp) {
       return null;
@@ -31,8 +37,8 @@ const EstimatedArrivalTimeLabel = ({
         className,
       )}
       text={`${timeString} 출발 예정`}
-      duration={0.2}
-      delayMultiple={0.01}
+      duration={0.5}
+      delayMultiple={0.02}
       framerProps={framerMotionProps}
     />
   );
@@ -43,4 +49,4 @@ const framerMotionProps = {
   visible: { opacity: 1, x: 0 },
 };
 
-export default EstimatedArrivalTimeLabel;
+export default EstimatedDepartureTimeLabel;
