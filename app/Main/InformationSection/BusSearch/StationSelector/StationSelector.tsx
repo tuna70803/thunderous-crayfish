@@ -52,6 +52,7 @@ const StationSelector = ({ className, onSelect }: StationSelectorProps) => {
 
 /**
  * 현재 위치 근처의 버스 정류소 목록을 가져와 리턴한다.
+ * 경유용 가상 버스 정류소는 목록에서 제외한다.
  * @param currentLocation - 현재 위치 정보 (위도, 경도)
  * @returns 현재 위치 근처의 버스 정류소 데이터 목록, 에러시 empty array.
  */
@@ -60,9 +61,13 @@ const getNearbyBusStations = async (
 ): Promise<StationInfo[]> => {
   const nearbyStations = await fetchNearbyBusStations(currentLocation);
   const data = xmlStringToObject(nearbyStations);
+  const realBusStations =
+    data?.response?.msgBody?.busStationAroundList?.filter(
+      (item: any) => item.stationName.includes('(경유)') === false,
+    ) ?? [];
 
   return (
-    data?.response?.msgBody?.busStationAroundList?.map((item: any) => ({
+    realBusStations.map((item: any) => ({
       id: item.stationId,
       name: item.stationName,
       latlng: {
