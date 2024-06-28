@@ -40,7 +40,7 @@ const StationSelector = ({ className, onSelect }: StationSelectorProps) => {
   );
 
   return (
-    <div className={cn('h-96', className)}>
+    <div className={cn('h-96', className)} data-vaul-no-drag>
       <KakaoMap
         stations={stations}
         currentLocation={currentLocation}
