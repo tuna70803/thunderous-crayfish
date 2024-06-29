@@ -1,8 +1,8 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import type { StationInfo } from './types';
 import type { LatLng } from '@/types';
-import { SEOUL_LOCATION_INFO } from './constants';
+import useKakaoMap from './useKakaoMap';
 import useUpdateMapCenterEffect from './useUpdateMapCenterEffect';
 
 interface KakaoMapProps {
@@ -27,31 +27,7 @@ const KakaoMap = ({
   stations,
   onStationSelect,
 }: KakaoMapProps) => {
-  const mapContainerRef = useRef<HTMLDivElement | null>(null);
-  const [map, setMap] = useState<kakao.maps.Map | null>(null);
-
-  useEffect(() => {
-    const containerEl = mapContainerRef.current;
-    if (!window.kakao.maps || !containerEl || map) {
-      return;
-    }
-
-    window.kakao.maps.load(() => {
-      const location = currentLocation ? currentLocation : SEOUL_LOCATION_INFO;
-      const mapOptions = {
-        center: new window.kakao.maps.LatLng(location.lat, location.lng),
-        level: 2,
-      };
-
-      const mapInstance = new window.kakao.maps.Map(containerEl, mapOptions);
-      setMap(mapInstance);
-    });
-
-    return () => {
-      setMap(null);
-    };
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
+  const [map, mapContainerRef] = useKakaoMap(currentLocation);
   useUpdateMapCenterEffect(currentLocation, map);
 
   useEffect(() => {
