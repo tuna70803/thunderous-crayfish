@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { cn } from '@/lib/utils';
-import { StationInfo } from './types';
-import { LatLng } from '@/types';
+import type { StationInfo } from './types';
+import type { LatLng } from '@/types';
 import { SEOUL_LOCATION_INFO } from './constants';
+import useUpdateMapCenterEffect from './useUpdateMapCenterEffect';
 
 interface KakaoMapProps {
   className?: string;
@@ -50,6 +51,8 @@ const KakaoMap = ({
       setMap(null);
     };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useUpdateMapCenterEffect(currentLocation, map);
 
   useEffect(() => {
     if (!map) {
