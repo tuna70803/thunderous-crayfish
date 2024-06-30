@@ -6,7 +6,7 @@ import ReSearchButton from './ReSearchButton';
 import useKakaoMap from './useKakaoMap';
 import useUpdateMapCenterEffect from './useUpdateMapCenterEffect';
 
-interface KakaoMapProps {
+interface StationsMapProps {
   className?: string;
   currentLocation: LatLng | null;
   stations: StationInfo[];
@@ -15,7 +15,7 @@ interface KakaoMapProps {
 }
 
 /**
- * 카카오 맵 컴포넌트
+ * 버스 정류장 맵 컴포넌트
  * 카카오 맵 SDK를 사용해서 지도를 표시한다.
  * 전달받은 버스 정류소를 지도위에 마커로 표시한다.
  * @param className - 컴포넌트에 적용할 class name
@@ -24,13 +24,13 @@ interface KakaoMapProps {
  * @param onStationSelect - 버스 정류장 선택 이벤트 핸들러
  * @param onReSearchStations - 버스 정류장 재검색 이벤트 핸들러
  */
-const KakaoMap = ({
+const StationsMap = ({
   className,
   currentLocation,
   stations,
   onStationSelect,
   onReSearchStations,
-}: KakaoMapProps) => {
+}: StationsMapProps) => {
   const [map, mapContainerRef] = useKakaoMap(currentLocation);
   useUpdateMapCenterEffect(currentLocation, map);
 
@@ -76,4 +76,4 @@ const KakaoMap = ({
   );
 };
 
-export default KakaoMap;
+export default StationsMap;
