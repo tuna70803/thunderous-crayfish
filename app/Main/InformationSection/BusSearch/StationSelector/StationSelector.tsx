@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
 import { fetchNearbyBusStations } from '@/apis/publicDataPortal';
 import { xmlStringToObject } from '@/utils/xml';
@@ -7,7 +7,7 @@ import { toFixedNumber } from '@/utils/number';
 import type { LatLng } from '@/types';
 import type { StationInfo } from './types';
 import KakaoMap from './KakaoMap';
-import useCurrentLocation from './useCurrentLocation';
+import useUserLocation from './useUserLocation';
 
 interface StationSelectorProps {
   className?: string;
@@ -21,7 +21,12 @@ interface StationSelectorProps {
  * @param onSelect - 버스 정류소 선택 이벤트 핸들러
  */
 const StationSelector = ({ className, onSelect }: StationSelectorProps) => {
-  const currentLocation = useCurrentLocation();
+  const [currentLocation, setCurrentLocation] = useState<LatLng | null>(null);
+  const userLocation = useUserLocation();
+  useLayoutEffect(() => {
+    setCurrentLocation(userLocation);
+  }, [userLocation]);
+
   const [stations, setStations] = useState<StationInfo[]>([]);
   useEffect(() => {
     if (!currentLocation) {
@@ -39,12 +44,17 @@ const StationSelector = ({ className, onSelect }: StationSelectorProps) => {
     [onSelect],
   );
 
+  const onReSearchStations = useCallback((newLocation: LatLng) => {
+    setCurrentLocation(newLocation);
+  }, []);
+
   return (
     <div className={cn('h-96', className)} data-vaul-no-drag>
       <KakaoMap
         stations={stations}
         currentLocation={currentLocation}
         onStationSelect={onStationSelect}
+        onReSearchStations={onReSearchStations}
       />
     </div>
   );

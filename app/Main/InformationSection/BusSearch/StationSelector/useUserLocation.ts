@@ -4,14 +4,14 @@ import type { LatLng } from '@/types';
 import { SEOUL_LOCATION_INFO } from './constants';
 
 /**
- * 현재 위치 정보를 사용한다.
- * 위치 정보중 위도와 경도 정보를 사용할 수 있다.
+ * 현재 사용자의 위치 정보를 사용한다.
+ * 여러가지 위치 정보중 위도와 경도 정보를 사용할 수 있다.
  * @returns 위도와 경도 정보
- * - currentLocation.lat: 위도
- * - currentLocation.lng: 경도
+ * - userLocation.lat: 위도
+ * - userLocation.lng: 경도
  */
-const useCurrentLocation = () => {
-  const [currentLocation, setCurrentLocation] = useState<LatLng | null>(() => {
+const useUserLocation = () => {
+  const [userLocation, setUserLocation] = useState<LatLng | null>(() => {
     if (
       !process.env.NEXT_PUBLIC_TEST_LAT ||
       !process.env.NEXT_PUBLIC_TEST_LNG
@@ -33,7 +33,7 @@ const useCurrentLocation = () => {
 
     const onSuccess = (position: GeolocationPosition) => {
       const { latitude, longitude } = position.coords;
-      setCurrentLocation({
+      setUserLocation({
         lat: latitude,
         lng: longitude,
       });
@@ -60,7 +60,7 @@ const useCurrentLocation = () => {
     });
   }, []);
 
-  return currentLocation;
+  return userLocation;
 };
 
-export default useCurrentLocation;
+export default useUserLocation;

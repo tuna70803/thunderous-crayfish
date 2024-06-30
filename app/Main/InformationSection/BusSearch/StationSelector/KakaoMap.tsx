@@ -1,7 +1,8 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import type { StationInfo } from './types';
 import type { LatLng } from '@/types';
+import ReSearchButton from './ReSearchButton';
 import useKakaoMap from './useKakaoMap';
 import useUpdateMapCenterEffect from './useUpdateMapCenterEffect';
 
@@ -10,6 +11,7 @@ interface KakaoMapProps {
   currentLocation: LatLng | null;
   stations: StationInfo[];
   onStationSelect: (stationId: string) => void;
+  onReSearchStations: (newLocation: LatLng) => void;
 }
 
 /**
@@ -20,12 +22,14 @@ interface KakaoMapProps {
  * @param currentLocation - 현재 위치 정보 (위도, 경도)
  * @param stations - 버스 정류장 목록
  * @param onStationSelect - 버스 정류장 선택 이벤트 핸들러
+ * @param onReSearchStations - 버스 정류장 재검색 이벤트 핸들러
  */
 const KakaoMap = ({
   className,
   currentLocation,
   stations,
   onStationSelect,
+  onReSearchStations,
 }: KakaoMapProps) => {
   const [map, mapContainerRef] = useKakaoMap(currentLocation);
   useUpdateMapCenterEffect(currentLocation, map);
@@ -50,8 +54,25 @@ const KakaoMap = ({
     });
   }, [stations, map, onStationSelect]);
 
+  const onReSearch = useCallback(() => {
+    if (!map) {
+      return;
+    }
+
+    const currentMapCenter = map.getCenter();
+    onReSearchStations({
+      lat: currentMapCenter.getLat(),
+      lng: currentMapCenter.getLng(),
+    });
+  }, [map, onReSearchStations]);
+
   return (
-    <div ref={mapContainerRef} className={cn('h-full w-full', className)} />
+    <div
+      ref={mapContainerRef}
+      className={cn('relative h-full w-full', className)}
+    >
+      <ReSearchButton className="z-10" onClick={onReSearch} />
+    </div>
   );
 };
 
