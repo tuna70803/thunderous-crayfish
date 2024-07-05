@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import type { LatLng } from '@/types';
+import { toast } from 'sonner';
 import { SEOUL_LOCATION_INFO } from './constants';
 
 /**
@@ -27,7 +28,7 @@ const useUserLocation = () => {
 
   useEffect(() => {
     if (!('geolocation' in navigator)) {
-      console.warn('위치 정보를 사용할 수 없습니다.');
+      toast.warning('위치 정보를 사용할 수 없어요 😭');
       return;
     }
 
@@ -42,13 +43,13 @@ const useUserLocation = () => {
     const onError = (error: GeolocationPositionError) => {
       switch (error.code) {
         case GeolocationPositionError.PERMISSION_DENIED:
-          window.alert('위치 권한이 필요합니다.');
+          toast.error('위치 권한이 필요해요 🧐');
           break;
         case GeolocationPositionError.POSITION_UNAVAILABLE:
-          window.alert('위치 정보 확인을 실패했습니다.');
+          toast.error('위치 확인을 실패했어요 🥲');
           break;
         case GeolocationPositionError.TIMEOUT:
-          window.alert('위치 정보 요청 시간이 오버됐습니다.');
+          toast.error('위치 요청 시간이 오버됐어요 😇');
           break;
         default:
         // nothing to do.
