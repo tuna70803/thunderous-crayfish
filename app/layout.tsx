@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
 import Script from 'next/script';
 import { Analytics } from '@vercel/analytics/react';
+import { Toaster } from '@/components/ui/sonner';
 import './globals.css';
 
 export default function RootLayout({
@@ -13,6 +14,7 @@ export default function RootLayout({
     <html lang="ko">
       <body className={inter.className}>
         {children}
+        <Toaster className="pointer-events-auto" />
         <Analytics />
       </body>
       <Script id="load-service-worker">
