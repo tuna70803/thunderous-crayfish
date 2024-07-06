@@ -8,7 +8,7 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import type { BusRoute } from '@/types';
 import { getBusType } from '@/utils/busRoute';
-import BusNumber from '../BusNumber';
+import BusName from '../BusName';
 import RemainTimeLabel from './RemainTimeLabel';
 import EstimatedDepartureTimeLabel from './EstimatedDepartureTimeLabel';
 import ReferenceDateLabel from './ReferenceDateLabel';
@@ -53,7 +53,7 @@ const BusDepartureCard = ({
     <div className="flex flex-col items-end gap-0.5">
       <Card className="relative w-[300px]">
         <CardHeader className="px-6 pb-0 pt-6">
-          <BusNumber busName={busName} busTypeIndex={busTypeIndex} />
+          <BusName busName={busName} busTypeIndex={busTypeIndex} />
           <Avatar className="absolute right-4 top-4">
             <AvatarImage />
             <AvatarFallback>{busName}</AvatarFallback>
