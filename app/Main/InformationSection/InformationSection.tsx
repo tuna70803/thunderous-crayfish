@@ -49,6 +49,7 @@ const InformationSection = () => {
   return (
     <div className="flex flex-col items-center overflow-auto p-10">
       <BusDepartureCard
+        targetBus={currentBusRoute}
         busNumber={currentBusRoute?.routeName ?? ''}
         nextTimestamp={nextTargetTimestamp}
         referenceDate={referenceDate}
