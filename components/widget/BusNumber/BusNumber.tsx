@@ -1,15 +1,22 @@
-import { memo } from 'react';
+import { memo, useMemo } from 'react';
+import { getBusColor } from '@/utils/busRoute';
 
 interface BusNumberProps {
-  busNumber: string;
-  // [TODO]
-  // 버스 종류 추가하고 색상 설정 : 마을버스, 일반버스, 광역버스, ...
+  busName: string;
+  busTypeIndex: string;
 }
 
-const BusNumber = ({ busNumber }: BusNumberProps) => {
+const BusNumber = ({ busName, busTypeIndex }: BusNumberProps) => {
+  const busColor = useMemo(() => getBusColor(busTypeIndex), [busTypeIndex]);
+
   return (
-    <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight text-yellow-400 lg:text-5xl">
-      {busNumber}
+    <h1
+      className="'scroll-m-20 lg:text-5xl' text-4xl font-extrabold tracking-tight"
+      style={{
+        color: busColor,
+      }}
+    >
+      {busName}
     </h1>
   );
 };
