@@ -2,7 +2,7 @@ import { useCallback, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import type { StationInfo } from './types';
 import type { LatLng } from '@/types';
-import ReSearchButton from './ReSearchButton';
+import MapControlBox from './MapControlBox';
 import useKakaoMap from './useKakaoMap';
 import useUpdateMapCenterEffect from './useUpdateMapCenterEffect';
 
@@ -11,6 +11,7 @@ interface StationsMapProps {
   currentLocation: LatLng | null;
   stations: StationInfo[];
   onStationSelect: (stationId: string) => void;
+  onRefreshUserLocation: () => void;
   onReSearchStations: (newLocation: LatLng) => void;
 }
 
@@ -22,6 +23,7 @@ interface StationsMapProps {
  * @param currentLocation - 현재 위치 정보 (위도, 경도)
  * @param stations - 버스 정류장 목록
  * @param onStationSelect - 버스 정류장 선택 이벤트 핸들러
+ * @param onRefreshUserLocation - 유저 위치 갱신 이벤트 핸들러
  * @param onReSearchStations - 버스 정류장 재검색 이벤트 핸들러
  */
 const StationsMap = ({
@@ -29,6 +31,7 @@ const StationsMap = ({
   currentLocation,
   stations,
   onStationSelect,
+  onRefreshUserLocation,
   onReSearchStations,
 }: StationsMapProps) => {
   const [map, mapContainerRef] = useKakaoMap(currentLocation);
@@ -71,7 +74,10 @@ const StationsMap = ({
       ref={mapContainerRef}
       className={cn('relative h-full w-full', className)}
     >
-      <ReSearchButton className="z-10" onClick={onReSearch} />
+      <MapControlBox
+        onRefreshUserLocation={onRefreshUserLocation}
+        onReSearchStations={onReSearch}
+      />
     </div>
   );
 };

@@ -1,18 +1,24 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import type { LatLng } from '@/types';
 import { toast } from 'sonner';
 import { SEOUL_LOCATION_INFO } from './constants';
 
+type UserLocationState = LatLng | null;
+type RefreshUserLocationFunc = () => void;
+type UseUserLocationReturns = [UserLocationState, RefreshUserLocationFunc];
+
 /**
  * 현재 사용자의 위치 정보를 사용한다.
  * 여러가지 위치 정보중 위도와 경도 정보를 사용할 수 있다.
- * @returns 위도와 경도 정보
+ * 사용자 위치를 다시 갱신하는 refresh 함수도 같이 리턴한다.
+ * @returns 위도와 경도 정보 및 사용자 위치 갱신 함수
  * - userLocation.lat: 위도
  * - userLocation.lng: 경도
+ * - refreshUserLocation: 사용자 위치 갱신 함수
  */
-const useUserLocation = () => {
-  const [userLocation, setUserLocation] = useState<LatLng | null>(() => {
+const useUserLocation = (): UseUserLocationReturns => {
+  const [userLocation, setUserLocation] = useState<UserLocationState>(() => {
     if (
       !process.env.NEXT_PUBLIC_TEST_LAT ||
       !process.env.NEXT_PUBLIC_TEST_LNG
@@ -26,7 +32,7 @@ const useUserLocation = () => {
     };
   });
 
-  useEffect(() => {
+  const refreshUserLocation = useCallback<RefreshUserLocationFunc>(() => {
     if (!('geolocation' in navigator)) {
       toast.warning('위치 정보를 사용할 수 없어요 😭');
       return;
@@ -61,7 +67,11 @@ const useUserLocation = () => {
     });
   }, []);
 
-  return userLocation;
+  useEffect(() => {
+    refreshUserLocation();
+  }, [refreshUserLocation]);
+
+  return [userLocation, refreshUserLocation];
 };
 
 export default useUserLocation;
