@@ -1,4 +1,4 @@
-import { Search as SearchIcon } from 'lucide-react';
+import { RotateCw as ReSearchIcon } from 'lucide-react';
 import {
   TooltipProvider,
   Tooltip,
@@ -31,7 +31,7 @@ const ReSearchButton = ({ className, onClick }: ReSearchButtonProps) => {
             className={cn('rounded-full', className)}
             onClick={onClick}
           >
-            <SearchIcon size={16} />
+            <ReSearchIcon size={16} />
           </Button>
         </TooltipTrigger>
         <TooltipContent className="text-sm text-muted-foreground">
