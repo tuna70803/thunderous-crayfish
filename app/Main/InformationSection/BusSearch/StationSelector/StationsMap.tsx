@@ -1,10 +1,11 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback } from 'react';
 import { cn } from '@/lib/utils';
 import type { StationInfo } from './types';
 import type { LatLng } from '@/types';
 import MapControlBox from './MapControlBox';
 import useKakaoMap from './useKakaoMap';
 import useUpdateMapCenterEffect from './useUpdateMapCenterEffect';
+import useStationMarkersEffect from './useStationMarkersEffect';
 
 interface StationsMapProps {
   className?: string;
@@ -36,26 +37,7 @@ const StationsMap = ({
 }: StationsMapProps) => {
   const [map, mapContainerRef] = useKakaoMap(currentLocation);
   useUpdateMapCenterEffect(currentLocation, map);
-
-  useEffect(() => {
-    if (!map) {
-      return;
-    }
-
-    stations.forEach((item) => {
-      const marker = new window.kakao.maps.Marker({
-        map: map,
-        position: new window.kakao.maps.LatLng(
-          item.latlng.lat,
-          item.latlng.lng,
-        ),
-        title: item.name,
-      });
-
-      const onMarkerClick = () => onStationSelect(item.id);
-      window.kakao.maps.event.addListener(marker, 'click', onMarkerClick);
-    });
-  }, [stations, map, onStationSelect]);
+  useStationMarkersEffect(map, stations, onStationSelect);
 
   const onReSearch = useCallback(() => {
     if (!map) {
