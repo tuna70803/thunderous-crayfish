@@ -19,7 +19,7 @@ interface StationSelectorProps {
  */
 const StationSelector = ({ className, onSelect }: StationSelectorProps) => {
   const [currentLocation, setCurrentLocation] = useState<LatLng | null>(null);
-  const userLocation = useUserLocation();
+  const [userLocation, refreshUserLocation] = useUserLocation();
   useLayoutEffect(() => {
     setCurrentLocation(userLocation);
   }, [userLocation]);
@@ -28,6 +28,11 @@ const StationSelector = ({ className, onSelect }: StationSelectorProps) => {
   const onStationSelect = useCallback(
     (stationId: string) => onSelect(stationId),
     [onSelect],
+  );
+
+  const onRefreshUserLocation = useCallback(
+    () => refreshUserLocation(),
+    [refreshUserLocation],
   );
 
   const onReSearchStations = useCallback((newLocation: LatLng) => {
@@ -40,6 +45,7 @@ const StationSelector = ({ className, onSelect }: StationSelectorProps) => {
         stations={stations}
         currentLocation={currentLocation}
         onStationSelect={onStationSelect}
+        onRefreshUserLocation={onRefreshUserLocation}
         onReSearchStations={onReSearchStations}
       />
     </div>

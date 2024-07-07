@@ -1,4 +1,4 @@
-import { Search as SearchIcon } from 'lucide-react';
+import { Locate as UserLocationIcon } from 'lucide-react';
 import {
   TooltipProvider,
   Tooltip,
@@ -8,19 +8,20 @@ import {
 import { Button } from '@/components/ui/button';
 import { cn, type ClassValue } from '@/lib/utils';
 
-interface ReSearchButtonProps {
+interface RefreshUserLocationButtonProps {
   className?: ClassValue;
   onClick: () => void;
 }
 
 /**
- * 재검색 버튼 컴포넌트
- * 현재 위치에서 다시 재검색을 실행하는 버튼을 표시한다.
- * 정류장 재검색에대한 툴팁도 같이 표시한다.
+ * 사용자 위치 갱신 버튼 컴포넌트
  * @param className - class name
  * @param onClick - 버튼 클릭 이벤트 핸들러
  */
-const ReSearchButton = ({ className, onClick }: ReSearchButtonProps) => {
+const RefreshUseLocationButton = ({
+  className,
+  onClick,
+}: RefreshUserLocationButtonProps) => {
   return (
     <TooltipProvider>
       <Tooltip>
@@ -31,15 +32,15 @@ const ReSearchButton = ({ className, onClick }: ReSearchButtonProps) => {
             className={cn('rounded-full', className)}
             onClick={onClick}
           >
-            <SearchIcon size={16} />
+            <UserLocationIcon size={16} />
           </Button>
         </TooltipTrigger>
         <TooltipContent className="text-sm text-muted-foreground">
-          이 위치에서 정류장을 다시 검색하기 🔍
+          지금 위치로 지도를 이동할게요 🏃
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>
   );
 };
 
-export default ReSearchButton;
+export default RefreshUseLocationButton;
