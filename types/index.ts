@@ -75,7 +75,28 @@ export interface BusRoute {
   stationId: string;
 }
 
+/**
+ * 위치 정보 타입 (위도, 경도)
+ */
 export interface LatLng {
+  /**
+   * 위도
+   */
   lat: number;
+
+  /**
+   * 경도
+   */
   lng: number;
 }
+
+/**
+ * 즐겨찾기 버스 키 타입
+ */
+export type FavoriteBusKey = `${BusRoute['stationId']}-${BusRoute['routeId']}`;
+
+/**
+ * 즐겨찾기 버스 타입
+ * 즐겨찾기는 고유의 키에 버스 데이터를 값으로 가지는 맵으로 구성한다.
+ */
+export type FavoriteBus = Record<FavoriteBusKey, BusRoute>;
