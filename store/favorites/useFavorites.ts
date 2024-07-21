@@ -1,6 +1,7 @@
+'use client';
 import { create } from 'zustand';
 import type { BusRoute, FavoriteBus } from '@/types';
-import { makeFavoriteBusKey } from './utils';
+import { getSavedFavorites, makeFavoriteBusKey, saveFavorites } from './utils';
 
 interface FavoritesState {
   favorites: FavoriteBus;
@@ -14,7 +15,14 @@ interface FavoritesState {
  * 즐겨찾기는 최대 10개까지 등록할 수 있다.
  */
 const useFavorites = create<FavoritesState>((set, get) => ({
-  favorites: {},
+  favorites: (() => {
+    const savedFavorites = getSavedFavorites();
+    if (!savedFavorites) {
+      return {};
+    }
+
+    return savedFavorites;
+  })(),
   addFavorite: (bus: BusRoute) => {
     const currentCount = Object.keys(get().favorites).length;
     if (currentCount >= 10) {
@@ -31,12 +39,16 @@ const useFavorites = create<FavoritesState>((set, get) => ({
       return;
     }
 
-    set((state) => ({
-      favorites: {
-        ...state.favorites,
-        [key]: { ...bus },
-      },
+    const newFavorites = {
+      ...get().favorites,
+      [key]: { ...bus },
+    };
+
+    set(() => ({
+      favorites: newFavorites,
     }));
+
+    saveFavorites(newFavorites);
   },
   removeFavorite: (bus: BusRoute) => {
     const targetKey = makeFavoriteBusKey(bus);
@@ -49,14 +61,14 @@ const useFavorites = create<FavoritesState>((set, get) => ({
       return;
     }
 
-    set((state) => {
-      const newFavorites = { ...state.favorites };
-      delete newFavorites[targetKey];
+    const newFavorites = { ...get().favorites };
+    delete newFavorites[targetKey];
 
-      return {
-        favorites: newFavorites,
-      };
-    });
+    set(() => ({
+      favorites: newFavorites,
+    }));
+
+    saveFavorites(newFavorites);
   },
   hasFavorite: (bus: BusRoute | null) => {
     const targetKey = makeFavoriteBusKey(bus);
