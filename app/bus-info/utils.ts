@@ -28,7 +28,7 @@ export const fetchExternalPastBusArrivals = async ({
 export const toPastBusArrivals = (history: ExternalPastBusArrivalsHistory) => {
   const arrivalDates =
     history.response?.msgBody?.pastArrivalList?.map(
-      (item) => item.arrivalDate ?? '',
+      (item) => item.RArrivalDate ?? '',
     ) ?? [];
 
   return arrivalDates.filter((item) => item);
