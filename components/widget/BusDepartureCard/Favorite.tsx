@@ -1,3 +1,5 @@
+'use client';
+import { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import FavoriteIcon from './FavoriteIcon';
@@ -16,15 +18,24 @@ interface FavoriteProps {
  * @param isFavorited - 즐겨찾기 등록 여부
  * @param onFavorite - 즐겨찾기 변경 이벤트 핸들러
  */
-const Favorite = ({ className, isFavorited, onFavorite }: FavoriteProps) => (
-  <Avatar
-    className={cn('cursor-pointer', className)}
-    onClick={() => onFavorite(isFavorited)}
-  >
-    <AvatarFallback>
-      <FavoriteIcon isFavorited={Boolean(isFavorited)} />
-    </AvatarFallback>
-  </Avatar>
-);
+const Favorite = ({ className, isFavorited, onFavorite }: FavoriteProps) => {
+  const [favorited, setFavorited] = useState(false);
+  useEffect(() => {
+    setFavorited(isFavorited);
+  }, [isFavorited]);
+
+  return (
+    <section>
+      <Avatar
+        className={cn('cursor-pointer', className)}
+        onClick={() => onFavorite(isFavorited)}
+      >
+        <AvatarFallback>
+          <FavoriteIcon isFavorited={favorited} />
+        </AvatarFallback>
+      </Avatar>
+    </section>
+  );
+};
 
 export default Favorite;
