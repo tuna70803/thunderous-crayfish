@@ -75,13 +75,11 @@ const BusDepartureCard = ({
       <Card className="relative w-[300px]">
         <CardHeader className="px-6 pb-0 pt-6">
           <BusName busName={busName} busTypeIndex={busTypeIndex} />
-          {targetBus && (
-            <Favorite
-              className="absolute right-4 top-4"
-              isFavorited={Boolean(isFavorited)}
-              onFavorite={onFavoriteBus}
-            />
-          )}
+          <Favorite
+            className="absolute right-4 top-4"
+            isFavorited={Boolean(isFavorited)}
+            onFavorite={onFavoriteBus}
+          />
         </CardHeader>
         <CardDescription className="mt-2 px-6">{busType}</CardDescription>
         <CardContent className="mt-6 flex flex-col gap-1">

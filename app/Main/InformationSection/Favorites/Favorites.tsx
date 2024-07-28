@@ -1,6 +1,7 @@
+import { useEffect, useState } from 'react';
 import { Dock, DockIcon } from '@/components/magicui/dock';
 import useFavorites from '@/store/favorites';
-import type { BusRoute } from '@/types';
+import type { BusRoute, FavoriteBus } from '@/types';
 import FavoriteItem from './FavoriteItem';
 
 interface FavoritesProps {
@@ -15,7 +16,11 @@ interface FavoritesProps {
  * @param onSelect - 즐겨찾기 아이템 선택 이벤트 핸들러
  */
 const Favorites = ({ className, onSelect }: FavoritesProps) => {
-  const favorites = useFavorites((state) => state.favorites);
+  const [favorites, setFavorites] = useState<FavoriteBus>({});
+  const savedFavorites = useFavorites((state) => state.favorites);
+  useEffect(() => {
+    setFavorites(savedFavorites);
+  }, [savedFavorites]);
 
   if (Object.keys(favorites).length === 0) {
     return null;
