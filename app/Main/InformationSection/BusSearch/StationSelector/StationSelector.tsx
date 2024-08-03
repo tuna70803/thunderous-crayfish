@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useCallback, useLayoutEffect, useState } from 'react';
-import { cn } from '@/lib/utils';
 import type { LatLng } from '@/types';
 import StationsMap from './StationsMap';
 import useUserLocation from './useUserLocation';
@@ -40,7 +39,7 @@ const StationSelector = ({ className, onSelect }: StationSelectorProps) => {
   }, []);
 
   return (
-    <div className={cn('h-96', className)} data-vaul-no-drag>
+    <div className={className} data-vaul-no-drag>
       <StationsMap
         stations={stations}
         currentLocation={currentLocation}
