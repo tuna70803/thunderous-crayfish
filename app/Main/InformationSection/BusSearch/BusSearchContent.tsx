@@ -45,7 +45,7 @@ const BusSearchContent = ({
   );
 
   return (
-    <div className={cn('flex flex-col gap-8', className)}>
+    <div className={cn('flex flex-col', className)}>
       <StationSelector
         className={stationSeletorClassName}
         onSelect={onStationSelect}

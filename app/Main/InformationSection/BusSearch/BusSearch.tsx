@@ -41,7 +41,7 @@ const BusSearch = ({ buttonClass, onSearch }: BusSearchProps) => {
       <DrawerTrigger asChild>
         <Button className={cn(buttonClass)}>설정</Button>
       </DrawerTrigger>
-      <DrawerContent>
+      <DrawerContent className="h-[98%]">
         <DrawerHeader>
           <DrawerTitle>다른 버스 찾아보기</DrawerTitle>
           <DrawerDescription>
@@ -49,12 +49,12 @@ const BusSearch = ({ buttonClass, onSearch }: BusSearchProps) => {
           </DrawerDescription>
         </DrawerHeader>
         <BusSearchContent
-          className="p-0 sm:mt-4 sm:p-4"
-          stationSeletorClassName="h-52 sm:h-96"
-          busSelectorClassName="px-2 h-60 max-h-60 sm:h-96 sm:max-h-96 sm:px-0"
+          className="flex-auto p-0 sm:mt-4 sm:p-4"
+          stationSeletorClassName="flex-1"
+          busSelectorClassName="px-2 pt-2 flex-1 max-h-[300px] sm:h-96 sm:max-h-96 sm:px-0"
           onBusChange={onBusChange}
         />
-        <DrawerFooter>
+        <DrawerFooter className="py-8">
           <DrawerClose asChild>
             <Button className="sm:mx-auto sm:w-1/3" onClick={onSearchClick}>
               조회
