@@ -11,7 +11,7 @@ interface BusSearchContentProps {
   className?: string;
   stationSeletorClassName?: string;
   busSelectorClassName?: string;
-  onBusChange: (targetBus: BusRoute) => void;
+  onBusSelect: (targetBusRoute: BusRoute) => void;
 }
 
 /**
@@ -21,28 +21,19 @@ interface BusSearchContentProps {
  * @param className - 컴포넌트에 적용할 class name
  * @param stationSeletorClassName - 버스 정류소 선택 맵에 적용할 class name
  * @param busSelectorClassName - 버스 선택 목록에 적용할 class name
- * @param onBusChange - 버스 변경 이벤트 핸들러
+ * @param onBusSelect - 버스 선택 이벤트 핸들러
  */
 const BusSearchContent = ({
   className,
   stationSeletorClassName,
   busSelectorClassName,
-  onBusChange,
+  onBusSelect,
 }: BusSearchContentProps) => {
   const [busRoutes, setBusRoutes] = useState<BusRoute[]>([]);
   const onStationSelect = useCallback(async (newStationId: string) => {
     const newBusRoutes = await getBusRoutes(newStationId);
     setBusRoutes(newBusRoutes);
   }, []);
-
-  const [currentBusRoute, setCurrentBusRoute] = useState<BusRoute | null>(null);
-  const onTargetBusSelect = useCallback(
-    (newBusRoute: BusRoute) => {
-      setCurrentBusRoute(newBusRoute);
-      onBusChange(newBusRoute);
-    },
-    [onBusChange],
-  );
 
   return (
     <div className={cn('flex flex-col', className)}>
@@ -53,8 +44,7 @@ const BusSearchContent = ({
       <BusSelector
         className={busSelectorClassName}
         busRoutes={busRoutes}
-        currentBusRoute={currentBusRoute}
-        onSelect={onTargetBusSelect}
+        onSelect={onBusSelect}
       />
     </div>
   );

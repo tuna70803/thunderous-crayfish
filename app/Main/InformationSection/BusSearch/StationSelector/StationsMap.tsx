@@ -54,7 +54,7 @@ const StationsMap = ({
   return (
     <div
       ref={mapContainerRef}
-      className={cn('relative h-full w-full', className)}
+      className={cn('relative h-full w-full sm:rounded-xl', className)}
     >
       <MapControlBox
         onRefreshUserLocation={onRefreshUserLocation}
