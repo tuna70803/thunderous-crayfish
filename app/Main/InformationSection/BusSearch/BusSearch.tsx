@@ -27,17 +27,18 @@ interface BusSearchProps {
  * @param onSearch - 조회 버튼 클릭 이벤트 핸들러
  */
 const BusSearch = ({ buttonClass, onSearch }: BusSearchProps) => {
-  const [targetBusRoute, setTargetBusRoute] = useState<BusRoute | null>(null);
-  const onBusChange = (newBus: BusRoute) => {
-    setTargetBusRoute(newBus);
+  const [isOpen, setIsOpen] = useState(false);
+  const onOpenChange = (open: boolean) => {
+    setIsOpen(open);
   };
 
-  const onSearchClick = () => {
-    onSearch(targetBusRoute);
+  const onBusSelect = (newBusRoute: BusRoute) => {
+    onSearch(newBusRoute);
+    setIsOpen(false);
   };
 
   return (
-    <Drawer>
+    <Drawer open={isOpen} onOpenChange={onOpenChange}>
       <DrawerTrigger asChild>
         <Button className={cn(buttonClass)}>설정</Button>
       </DrawerTrigger>
@@ -51,14 +52,12 @@ const BusSearch = ({ buttonClass, onSearch }: BusSearchProps) => {
         <BusSearchContent
           className="flex-auto p-0 sm:mt-4 sm:p-4"
           stationSeletorClassName="flex-1"
-          busSelectorClassName="px-2 pt-2 flex-1 max-h-[300px] sm:h-96 sm:max-h-96 sm:px-0"
-          onBusChange={onBusChange}
+          busSelectorClassName="px-2 pt-4 h-[200px] max-h-[200px] sm:h-96 sm:max-h-96 sm:px-0"
+          onBusSelect={onBusSelect}
         />
         <DrawerFooter className="py-8">
           <DrawerClose asChild>
-            <Button className="sm:mx-auto sm:w-1/3" onClick={onSearchClick}>
-              조회
-            </Button>
+            <Button className="sm:mx-auto sm:w-1/5">닫기</Button>
           </DrawerClose>
         </DrawerFooter>
       </DrawerContent>
