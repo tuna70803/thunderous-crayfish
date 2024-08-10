@@ -1,7 +1,13 @@
+import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import { BusChip } from '@/components/widget';
 import type { BusRoute } from '@/types';
+import {
+  BUS_CONTAINER_ANIMATION,
+  BUS_ITEM_ANIMATION,
+  BUS_ITEM_HOVER_ANIMATION,
+} from './constants';
 
 interface BusSelectorProps {
   className?: string;
@@ -30,23 +36,34 @@ const BusSelector = ({ className, busRoutes, onSelect }: BusSelectorProps) => {
     );
   }
 
+  const busContainerRenderKey = busRoutes[0].stationId;
+
   return (
     <ScrollArea data-vaul-no-drag>
-      <div
+      <motion.div
         className={cn(
           'flex flex-row flex-wrap content-start items-center justify-center gap-2',
           className,
         )}
+        key={busContainerRenderKey}
+        variants={BUS_CONTAINER_ANIMATION}
+        initial="hidden"
+        animate="appear"
       >
         {busRoutes.map((route: BusRoute) => (
-          <BusChip
+          <motion.div
             key={route.routeId}
-            name={route.routeName}
-            typeIndex={route.routeTypeCd}
-            onClick={() => onSelect(route)}
-          />
+            variants={BUS_ITEM_ANIMATION}
+            whileHover={BUS_ITEM_HOVER_ANIMATION}
+          >
+            <BusChip
+              name={route.routeName}
+              typeIndex={route.routeTypeCd}
+              onClick={() => onSelect(route)}
+            />
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
       <ScrollBar orientation="vertical" />
     </ScrollArea>
   );
